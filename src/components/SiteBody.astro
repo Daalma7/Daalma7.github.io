@@ -1,5 +1,5 @@
 ---
-import type { Lang } from "../i18n";
+import { useTranslations, type Lang } from "../i18n";
 import ParticleField from "./ParticleField.astro";
 import Reveal from "./Reveal.astro";
 import Navbar from "./Navbar.astro";
@@ -14,6 +14,7 @@ interface Props {
 }
 
 const { lang } = Astro.props;
+const t = useTranslations(lang);
 ---
 
 <Navbar lang={lang} />
@@ -23,57 +24,42 @@ const { lang } = Astro.props;
     <ParticleField />
 
     <div class="hero-content">
-      <p class="eyebrow">MATEMÁTICAS · IA · DATA SCIENCE</p>
+      <p class="eyebrow">{t.hero.eyebrow}</p>
 
-      <h1>David<br />Villar Martos</h1>
+      <h1><Fragment set:html={t.hero.name} /></h1>
 
-      <p class="intro">
-        Profesor de matemáticas, ingeniero informático, científico de datos y entusiasta de la IA.
-      </p>
+      <p class="intro">{t.hero.intro}</p>
 
       <a href="#about" class="scroll-indicator">
-        <span>Baja para explorar</span>
+        <span>{t.hero.scroll}</span>
         <span class="arrow">↓</span>
       </a>
     </div>
   </section>
 
   <section id="about" class="about">
-    <p class="section-label">01 — SOBRE MÍ</p>
+    <p class="section-label">{t.about.number} — {t.about.label}</p>
 
     <div class="about-content">
       <Reveal>
-        <h2>La <em> curiosidad</em> es el punto de <em> partida</em>.</h2>
+        <h2><Fragment set:html={t.about.heading} /></h2>
       </Reveal>
 
       <div class="about-lower">
         <Reveal delay={150}>
           <div class="about-text">
-            <p>
-              Soy David, matemático, ingeniero informático, científico de datos y profesor. Me gusta aprender cosas nuevas, entender cómo encajan entre sí y encontrar formas de convertir ese conocimiento en algo útil.
-            </p>
-
-            <p>
-              Las matemáticas me enseñaron a pensar, la informática a construir y la ciencia de datos y la IA, a encontrar patrones y conocimiento en sistemas complejos. La docencia me ha dado la oportunidad de compartir todo ello y descubrir que una idea difícil puede convertirse en algo sencillo cuando encuentras la forma adecuada de explicarla.
-            </p>
-
-            <p>
-              Fuera del aula, disfruto llevando estas ideas a otros lugares: experimentando con datos, diseñando juegos y construyendo experiencias interactivas.
-            </p>
-
-            <p class="about-closing">
-              Al final, todo se reduce a lo mismo:<br /> <em> comprender, construir y compartir.</em>
-            </p>
+            {t.about.paragraphs.map((p) => <p>{p}</p>)}
+            <p class="about-closing"><Fragment set:html={t.about.closing} /></p>
           </div>
         </Reveal>
 
         <Reveal delay={300}>
           <figure class="about-photo">
             <div class="about-photo-frame">
-              <img src="/images/david-villar.png" alt="David Villar Martos" />
+              <img src="/images/david-villar.png" alt={t.about.photoAlt} />
             </div>
 
-            <figcaption>DAVID VILLAR MARTOS</figcaption>
+            <figcaption>{t.about.caption}</figcaption>
           </figure>
         </Reveal>
       </div>
