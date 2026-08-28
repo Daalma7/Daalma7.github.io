@@ -1,0 +1,90 @@
+---
+import { useTranslations, type Lang } from "../i18n";
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+const c = t.contact;
+---
+
+<section id="contact" class="contact">
+
+  <p class="section-label">{c.number} — {c.label}</p>
+
+  <div class="contact-content">
+
+    <h2><Fragment set:html={c.heading} /></h2>
+
+    <p>{c.body}</p>
+
+    <a href={`mailto:${c.email}`} class="contact-link">
+      {c.cta}
+      <span>↗</span>
+    </a>
+
+  </div>
+
+</section>
+
+
+<style>
+  .contact {
+    padding: var(--section-pad-y) var(--gutter);
+    background: var(--foreground);
+    color: var(--background);
+  }
+
+  .contact-content {
+    max-width: var(--content-max);
+    margin-left: var(--col-label);
+  }
+
+  .contact h2 {
+    margin: 0;
+    font-size: clamp(4rem, 10vw, 10rem);
+    line-height: 0.85;
+    letter-spacing: -0.06em;
+    font-weight: 400;
+  }
+
+  .contact h2 em {
+    font-family: "Playfair Display", serif;
+  }
+
+  .contact-content > p {
+    max-width: 44ch;
+    margin-top: var(--space-2xl);
+    color: rgba(244, 242, 237, 0.6);
+    line-height: 1.7;
+  }
+
+  .contact-link {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-md);
+    margin-top: var(--space-2xl);
+    padding-bottom: var(--space-2xs);
+    border-bottom: 1px solid rgba(244, 242, 237, 0.5);
+    font-size: 1rem;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+  }
+
+  .contact-link span {
+    font-size: 1.5rem;
+    transition: transform 0.4s ease;
+  }
+
+  .contact-link:hover span {
+    transform: translate(7px, -7px);
+  }
+
+  @media (max-width: 700px) {
+    .contact-content {
+      margin-left: 0;
+    }
+  }
+</style>

@@ -1,0 +1,603 @@
+<canvas id="particle-canvas" aria-hidden="true"></canvas>
+
+<script>
+  const canvas = document.getElementById(
+    "particle-canvas"
+  ) as HTMLCanvasElement | null;
+
+  if (!canvas) {
+    throw new Error("Particle canvas not found");
+  }
+
+  const ctx = canvas.getContext("2d");
+
+  if (!ctx) {
+    throw new Error("Canvas 2D context not supported");
+  }
+
+
+  interface Point {
+    baseX: number;
+    baseY: number;
+
+    x: number;
+    y: number;
+
+    vx: number;
+    vy: number;
+  }
+
+  interface Connection {
+    a: Point;
+    b: Point;
+  }
+
+  const connections: Connection[] = [];
+
+
+  const points: Point[] = [];
+
+
+  let width = 0;
+  let height = 0;
+
+
+  /*
+   * Mouse position is stored globally.
+   *
+   * IMPORTANT:
+   * We listen on window rather than canvas.
+   * This means the effect continues working
+   * even when the mouse is over the text.
+   */
+
+  let mouseX = -1000;
+  let mouseY = -1000;
+
+
+  /*
+   * ISOMETRIC GRID
+   */
+
+  const GRID_X = 45;
+  const GRID_Y = 26;
+
+
+  /*
+   * Mouse interaction
+   */
+
+  const REPULSION_RADIUS = 170;
+  const REPULSION_FORCE = 1.1;
+
+
+  /*
+   * Elasticity
+   */
+
+  const RETURN_FORCE = 0.018;
+  const FRICTION = 0.82;
+
+
+  function resize() {
+
+    const dpr =
+      Math.min(
+        window.devicePixelRatio || 1,
+        2
+      );
+
+
+    width =
+      window.innerWidth;
+
+    height =
+      window.innerHeight;
+
+
+    canvas.width =
+      width * dpr;
+
+    canvas.height =
+      height * dpr;
+
+
+    canvas.style.width =
+      `${width}px`;
+
+    canvas.style.height =
+      `${height}px`;
+
+
+    ctx.setTransform(
+      dpr,
+      0,
+      0,
+      dpr,
+      0,
+      0
+    );
+  }
+
+
+  /*
+   * Create an isometric lattice.
+   */
+
+  function createGrid() {
+
+  points.length = 0;
+  connections.length = 0;
+
+  const columns =
+    Math.ceil(width / GRID_X) + 8;
+
+  const rows =
+    Math.ceil(height / GRID_Y) + 8;
+
+  const centerX =
+    width / 2;
+
+  const centerY =
+    height / 2;
+
+  const grid: Point[][] = [];
+
+  for (
+    let row = -rows;
+    row < rows;
+    row++
+  ) {
+
+    const currentRow: Point[] = [];
+
+    for (
+      let column = -columns;
+      column < columns;
+      column++
+    ) {
+
+      const x =
+        centerX +
+        (column - row) *
+        GRID_X;
+
+      const y =
+        centerY +
+        (column + row) *
+        GRID_Y;
+
+      const point: Point = {
+
+        baseX: x,
+        baseY: y,
+
+        x,
+        y,
+
+        vx: 0,
+        vy: 0
+      };
+
+      points.push(point);
+      currentRow.push(point);
+    }
+
+    grid.push(currentRow);
+  }
+
+
+  /*
+   * Build the lattice connections ONCE.
+   *
+   * After this, the animation loop doesn't
+   * need to search for neighbours.
+   */
+
+  for (
+    let row = 0;
+    row < grid.length;
+    row++
+  ) {
+
+    for (
+      let column = 0;
+      column < grid[row].length;
+      column++
+    ) {
+
+      const point =
+        grid[row][column];
+
+
+      /*
+       * Horizontal lattice direction
+       */
+
+      if (
+        column + 1 <
+        grid[row].length
+      ) {
+
+        connections.push({
+
+          a: point,
+
+          b:
+            grid[row][column + 1]
+
+        });
+      }
+
+
+      /*
+       * First diagonal direction
+       */
+
+      if (
+        row + 1 <
+        grid.length
+      ) {
+
+        connections.push({
+
+          a: point,
+
+          b:
+            grid[row + 1][column]
+
+        });
+      }
+
+
+      /*
+       * Second diagonal direction
+       */
+
+      if (
+        row + 1 <
+          grid.length &&
+        column + 1 <
+          grid[row].length
+      ) {
+
+        connections.push({
+
+          a: point,
+
+          b:
+            grid[row + 1][column + 1]
+
+        });
+      }
+
+    }
+  }
+}
+
+
+  /*
+   * Update individual point.
+   */
+
+  function updatePoint(
+    point: Point
+  ) {
+
+    const dx =
+      point.x -
+      mouseX;
+
+
+    const dy =
+      point.y -
+      mouseY;
+
+
+    const distance =
+      Math.sqrt(
+        dx * dx +
+        dy * dy
+      );
+
+
+    /*
+     * Mouse repulsion.
+     */
+
+    if (
+      distance <
+      REPULSION_RADIUS
+    ) {
+
+      const influence =
+        1 -
+        distance /
+          REPULSION_RADIUS;
+
+
+      const safeDistance =
+        Math.max(
+          distance,
+          0.001
+        );
+
+
+      const force =
+        influence *
+        REPULSION_FORCE;
+
+
+      point.vx +=
+        (dx / safeDistance) *
+        force;
+
+
+      point.vy +=
+        (dy / safeDistance) *
+        force;
+    }
+
+
+    /*
+     * Return to original
+     * lattice position.
+     */
+
+    point.vx +=
+      (point.baseX - point.x) *
+      RETURN_FORCE;
+
+
+    point.vy +=
+      (point.baseY - point.y) *
+      RETURN_FORCE;
+
+
+    /*
+     * Friction.
+     */
+
+    point.vx *= FRICTION;
+    point.vy *= FRICTION;
+
+
+    point.x += point.vx;
+    point.y += point.vy;
+  }
+
+
+  /*
+   * Draw the points.
+   */
+
+  function drawPoints() {
+
+    for (
+      const point of points
+    ) {
+
+      const dx =
+        point.x -
+        mouseX;
+
+
+      const dy =
+        point.y -
+        mouseY;
+
+
+      const distance =
+        Math.sqrt(
+          dx * dx +
+          dy * dy
+        );
+
+
+      const influence =
+        Math.max(
+          0,
+          1 -
+            distance /
+              REPULSION_RADIUS
+        );
+
+
+      const radius =
+        1.1 +
+        influence * 2.4;
+
+
+      const opacity =
+        0.18 +
+        influence * 0.65;
+
+
+      ctx.beginPath();
+
+
+      ctx.arc(
+        point.x,
+        point.y,
+        radius,
+        0,
+        Math.PI * 2
+      );
+
+
+      ctx.fillStyle =
+        `rgba(23, 23, 23, ${opacity})`;
+
+
+      ctx.fill();
+    }
+  }
+
+
+  /*
+   * Connect nearby points.
+   *
+   * Because the lattice is isometric,
+   * the connections naturally form
+   * diamond-shaped cells.
+   */
+
+  function drawConnections() {
+
+  for (const connection of connections) {
+
+    const a = connection.a;
+    const b = connection.b;
+
+    const dx =
+      a.x - b.x;
+
+    const dy =
+      a.y - b.y;
+
+    const distance =
+      Math.sqrt(
+        dx * dx +
+        dy * dy
+      );
+
+    const opacity =
+      Math.min(
+        0.16,
+        Math.max(
+          0.03,
+          0.18 -
+            distance * 0.002
+        )
+      );
+
+    ctx.beginPath();
+
+    ctx.moveTo(
+      a.x,
+      a.y
+    );
+
+    ctx.lineTo(
+      b.x,
+      b.y
+    );
+
+    ctx.strokeStyle =
+      `rgba(23, 23, 23, ${opacity})`;
+
+    ctx.lineWidth = 0.5;
+
+    ctx.stroke();
+  }
+}
+
+
+  /*
+   * Animation loop.
+   */
+
+  function draw() {
+
+    ctx.clearRect(
+      0,
+      0,
+      width,
+      height
+    );
+
+
+    for (
+      const point of points
+    ) {
+
+      updatePoint(point);
+    }
+
+
+    drawConnections();
+    drawPoints();
+
+
+    requestAnimationFrame(
+      draw
+    );
+  }
+
+
+  /*
+   * GLOBAL mouse tracking.
+   *
+   * This fixes your first problem:
+   * the interaction DOES NOT disappear
+   * when the cursor is over the text.
+   */
+
+  window.addEventListener(
+    "mousemove",
+    (event) => {
+
+      mouseX =
+        event.clientX;
+
+      mouseY =
+        event.clientY;
+    },
+    {
+      passive: true
+    }
+  );
+
+
+  window.addEventListener(
+    "mouseleave",
+    () => {
+
+      mouseX = -1000;
+      mouseY = -1000;
+    }
+  );
+
+
+  window.addEventListener(
+    "resize",
+    () => {
+
+      resize();
+      createGrid();
+    }
+  );
+
+
+  resize();
+  createGrid();
+  draw();
+
+</script>
+
+
+<style>
+
+  #particle-canvas {
+
+    position: absolute;
+
+    inset: 0;
+
+    width: 100%;
+    height: 100%;
+
+    /*
+     * VERY IMPORTANT.
+     *
+     * The canvas doesn't intercept
+     * mouse events anymore.
+     */
+
+    pointer-events: none;
+
+    z-index: 0;
+
+  }
+
+</style>

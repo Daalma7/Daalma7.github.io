@@ -1,0 +1,307 @@
+---
+import { useTranslations, type Lang } from "../i18n";
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+const te = t.teaching;
+
+// principle images stay tied to position
+const principleImages = [
+  "/images/teaching/preguntas.png",
+  "/images/teaching/horizontes.webp",
+  "/images/teaching/corazon.png",
+];
+---
+
+<section id="teaching" class="teaching">
+
+  <div class="teaching-header">
+
+    <p class="section-label">{te.number} — {te.label}</p>
+
+    <div class="teaching-header-content">
+
+      <h2><Fragment set:html={te.heading} /></h2>
+
+      <p class="teaching-intro">{te.intro}</p>
+
+    </div>
+
+  </div>
+
+
+  <div class="teaching-principles">
+
+    {
+      te.principles.map((principle, i) => (
+        <article class="teaching-principle">
+
+          <div class="teaching-principle-number">{principle.number}</div>
+
+          <div class="teaching-principle-content">
+
+            <div class="teaching-principle-copy">
+
+              <p class="teaching-principle-label">{principle.label}</p>
+
+              <h3><Fragment set:html={principle.title} /></h3>
+
+              {principle.paragraphs.map((para) => (
+                <p class="teaching-principle-text">{para}</p>
+              ))}
+
+            </div>
+
+            <div class="teaching-principle-image">
+              <img src={principleImages[i]} alt="" loading="lazy" />
+            </div>
+
+          </div>
+
+        </article>
+      ))
+    }
+
+  </div>
+
+
+  <div class="teaching-closing">
+
+    <p class="teaching-closing-label">{te.closingLabel}</p>
+
+    <p class="teaching-closing-text">{te.closingText}</p>
+
+  </div>
+
+</section>
+
+
+<style>
+  .teaching {
+    padding: var(--section-pad-y) var(--gutter);
+    border-top: 1px solid var(--line);
+  }
+
+  .teaching-header {
+    display: grid;
+    grid-template-columns: var(--col-label) 1fr;
+    gap: var(--col-gap);
+  }
+
+  .teaching-header-content {
+    max-width: var(--content-max);
+  }
+
+  .teaching-header h2 {
+    margin: 0;
+    max-width: 20ch;
+    font-size: var(--display-l);
+    line-height: 0.95;
+    letter-spacing: -0.05em;
+    font-weight: 500;
+  }
+
+  .teaching-header h2 em {
+    font-family: "Playfair Display", serif;
+    font-weight: 500;
+  }
+
+  .teaching-intro {
+    max-width: 58ch;
+    margin: var(--space-xl) 0 0;
+    font-size: 1.05rem;
+    line-height: 1.8;
+    color: var(--muted);
+  }
+
+  .teaching-principles {
+    margin-top: var(--space-3xl);
+    border-top: 1px solid var(--line);
+  }
+
+  .teaching-principle {
+    padding: var(--space-2xl) 0;
+    border-bottom: 1px solid var(--line);
+  }
+
+  .teaching-principle-number {
+    font-size: 0.7rem;
+    letter-spacing: 0.16em;
+    color: var(--muted);
+  }
+
+  .teaching-principle-content {
+    display: grid;
+    grid-template-columns: minmax(0, 0.9fr) minmax(300px, 1.1fr);
+    gap: clamp(3rem, 8vw, 7.5rem);
+    align-items: center;
+    margin-top: var(--space-lg);
+  }
+
+  .teaching-principle-copy {
+    max-width: var(--content-max);
+  }
+
+  .teaching-principle-label {
+    margin: 0 0 var(--space-md);
+    font-size: 0.62rem;
+    font-weight: 500;
+    letter-spacing: 0.18em;
+    color: var(--muted);
+  }
+
+  .teaching-principle-copy h3 {
+    margin: 0;
+    max-width: 22ch;
+    font-size: var(--display-m);
+    line-height: 0.95;
+    letter-spacing: -0.05em;
+    font-weight: 500;
+  }
+
+  .teaching-principle-copy h3 em {
+    font-family: "Playfair Display", serif;
+    font-weight: 500;
+  }
+
+  .teaching-principle-text {
+    max-width: 52ch;
+    margin: var(--space-lg) 0 0;
+    font-size: 0.96rem;
+    line-height: 1.75;
+    color: var(--muted);
+  }
+
+  .teaching-principle-text + .teaching-principle-text {
+    margin-top: var(--space-sm);
+  }
+
+  .teaching-principle-image {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 4 / 3;
+    overflow: hidden;
+    background: transparent;
+    -webkit-mask-image: radial-gradient(
+      ellipse at center,
+      black 42%,
+      rgba(0, 0, 0, 0.85) 62%,
+      transparent 100%
+    );
+    mask-image: radial-gradient(
+      ellipse at center,
+      black 42%,
+      rgba(0, 0, 0, 0.85) 62%,
+      transparent 100%
+    );
+  }
+
+  .teaching-principle-image::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background:
+      linear-gradient(
+        90deg,
+        var(--background) 0%,
+        transparent 18%,
+        transparent 82%,
+        var(--background) 100%
+      ),
+      linear-gradient(
+        0deg,
+        var(--background) 0%,
+        transparent 18%,
+        transparent 82%,
+        var(--background) 100%
+      );
+    pointer-events: none;
+    opacity: 0.8;
+  }
+
+  .teaching-principle-image img {
+    width: 100%;
+    height: 100%;
+    display: block;
+    object-fit: cover;
+    filter: grayscale(45%) contrast(1.04) sepia(8%);
+    transform: scale(1.04);
+    opacity: 0.82;
+    transition:
+      transform 1s cubic-bezier(0.22, 1, 0.36, 1),
+      filter 0.7s ease,
+      opacity 0.7s ease;
+  }
+
+  .teaching-principle:hover .teaching-principle-image img {
+    transform: scale(1.08);
+    filter: grayscale(20%) contrast(1.05) sepia(10%);
+    opacity: 0.95;
+  }
+
+  .teaching-closing {
+    max-width: 60ch;
+    margin: var(--space-3xl) 0 0;
+    margin-left: var(--col-label);
+  }
+
+  .teaching-closing-label {
+    margin: 0 0 var(--space-md);
+    font-size: 0.62rem;
+    font-weight: 500;
+    letter-spacing: 0.2em;
+    color: var(--muted);
+  }
+
+  .teaching-closing-text {
+    margin: 0;
+    font-size: var(--display-m);
+    line-height: 1.05;
+    letter-spacing: -0.04em;
+    font-weight: 500;
+  }
+
+  .teaching-closing-text em {
+    font-family: "Playfair Display", serif;
+    font-weight: 500;
+  }
+
+  @media (max-width: 900px) {
+    .teaching-principle-content {
+      grid-template-columns: 1fr;
+      gap: var(--space-2xl);
+    }
+
+    .teaching-principle-image {
+      max-width: 700px;
+      margin: 0 auto;
+    }
+  }
+
+  @media (max-width: 700px) {
+    .teaching-header {
+      grid-template-columns: 1fr;
+      gap: var(--space-lg);
+    }
+
+    .teaching-header h2 {
+      font-size: clamp(2.8rem, 12vw, 4.5rem);
+    }
+
+    .teaching-principle-copy h3 {
+      font-size: clamp(2.3rem, 11vw, 4rem);
+    }
+
+    .teaching-closing {
+      margin-left: 0;
+    }
+
+    .teaching-closing-text {
+      font-size: clamp(2rem, 9vw, 3.5rem);
+    }
+  }
+</style>

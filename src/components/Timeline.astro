@@ -1,0 +1,287 @@
+---
+import { useTranslations, type Lang } from "../i18n";
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+---
+
+<section id="experience" class="timeline-section">
+
+  <div class="timeline-header">
+
+    <p class="section-label">{t.experience.number} — {t.experience.label}</p>
+
+    <div class="timeline-header-content">
+      <h2><Fragment set:html={t.experience.heading} /></h2>
+
+      <p>{t.experience.intro}</p>
+    </div>
+
+  </div>
+
+
+  <div class="timeline">
+
+    <!-- Static background line -->
+    <div class="timeline-line" aria-hidden="true">
+      <div class="timeline-line-progress"></div>
+    </div>
+
+    {
+      t.experience.items.map((item) => (
+        <article class="timeline-item">
+          <div class="timeline-year">{item.year}</div>
+
+          <div class="timeline-marker">
+            <div class="timeline-dot" />
+          </div>
+
+          <div class="timeline-content">
+            <p class="timeline-type">{item.type}</p>
+            <h3>{item.title}</h3>
+            <p>{item.body}</p>
+          </div>
+        </article>
+      ))
+    }
+
+  </div>
+
+</section>
+
+
+<script>
+  const timeline = document.querySelector(".timeline");
+
+  if (timeline) {
+    const items = timeline.querySelectorAll(".timeline-item");
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("is-visible");
+            observer.unobserve(entry.target);
+          }
+        });
+      },
+      {
+        threshold: 0.35
+      }
+    );
+
+    items.forEach((item) => observer.observe(item));
+  }
+</script>
+
+
+<style>
+  .timeline-section {
+    padding: var(--section-pad-y) var(--gutter);
+    border-top: 1px solid var(--line);
+  }
+
+  .timeline-header {
+    display: grid;
+    grid-template-columns: var(--col-label) 1fr;
+    gap: var(--col-gap);
+    margin-bottom: var(--space-3xl);
+  }
+
+  .timeline-header-content {
+    max-width: var(--content-max);
+  }
+
+  .timeline-header h2 {
+    margin: 0 0 var(--space-md);
+    max-width: 20ch;
+    font-size: var(--display-l);
+    line-height: 1;
+    letter-spacing: -0.04em;
+    font-weight: 500;
+  }
+
+  .timeline-header h2 em {
+    font-family: "Playfair Display", serif;
+    font-weight: 500;
+  }
+
+  .timeline-header-content > p {
+    max-width: 55ch;
+    margin: 0;
+    font-size: 1.05rem;
+    line-height: 1.8;
+    color: var(--muted);
+  }
+
+  .timeline {
+    position: relative;
+    width: 100%;
+  }
+
+  .timeline-line {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    /* aligns with the start of the content column */
+    left: calc(var(--col-label) + var(--col-gap));
+    width: 1px;
+    background: var(--line);
+    overflow: hidden;
+  }
+
+  .timeline-line-progress {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: var(--foreground);
+    transform-origin: top;
+    transform: scaleY(0);
+    transition: transform 2.2s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .timeline:has(.timeline-item.is-visible) .timeline-line-progress {
+    transform: scaleY(1);
+  }
+
+  .timeline-item {
+    position: relative;
+    display: grid;
+    grid-template-columns: calc(var(--col-label) + var(--col-gap)) 1fr;
+    min-height: 260px;
+  }
+
+  .timeline-year {
+    grid-column: 1;
+    padding-right: var(--space-lg);
+    text-align: right;
+    font-size: 0.72rem;
+    font-weight: 500;
+    letter-spacing: 0.16em;
+    color: var(--muted);
+    opacity: 0;
+    transform: translateX(-12px);
+    transition:
+      opacity 0.7s ease,
+      transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .timeline-marker {
+    position: absolute;
+    top: 0;
+    left: calc(var(--col-label) + var(--col-gap));
+    width: 1px;
+    height: 1px;
+    transform: translateX(-50%);
+  }
+
+  .timeline-dot {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 9px;
+    height: 9px;
+    border: 1px solid var(--foreground);
+    border-radius: 50%;
+    background: var(--background);
+    transform: translate(-50%, -50%) scale(0);
+    opacity: 0;
+    transition:
+      opacity 0.25s ease,
+      transform 0.65s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .timeline-content {
+    grid-column: 2;
+    padding-left: var(--space-2xl);
+    padding-bottom: var(--space-3xl);
+    max-width: 60ch;
+    opacity: 0;
+    transform: translateY(25px);
+    transition:
+      opacity 0.8s ease,
+      transform 0.9s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .timeline-type {
+    margin: 0 0 var(--space-xs);
+    font-size: 0.62rem;
+    font-weight: 500;
+    letter-spacing: 0.18em;
+    color: var(--muted);
+  }
+
+  .timeline-content h3 {
+    margin: 0 0 var(--space-sm);
+    font-size: var(--display-s);
+    line-height: 1.1;
+    letter-spacing: -0.025em;
+    font-weight: 500;
+  }
+
+  .timeline-content p:not(.timeline-type) {
+    max-width: 55ch;
+    margin: 0;
+    font-size: 0.95rem;
+    line-height: 1.75;
+    color: var(--muted);
+  }
+
+  .timeline-item.is-visible .timeline-year {
+    opacity: 0.6;
+    transform: translateX(0);
+  }
+
+  .timeline-item.is-visible .timeline-dot {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+  }
+
+  .timeline-item.is-visible .timeline-content {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  @media (max-width: 700px) {
+    .timeline-header {
+      grid-template-columns: 1fr;
+      gap: var(--space-lg);
+      margin-bottom: var(--space-2xl);
+    }
+
+    .timeline-header h2 {
+      font-size: clamp(2.5rem, 12vw, 4rem);
+    }
+
+    .timeline-line {
+      left: 0;
+    }
+
+    .timeline-item {
+      display: block;
+      min-height: 230px;
+      padding-left: var(--space-lg);
+    }
+
+    .timeline-year {
+      padding: 0;
+      margin-bottom: var(--space-sm);
+      text-align: left;
+    }
+
+    .timeline-marker {
+      left: 0;
+    }
+
+    .timeline-content {
+      padding-left: var(--space-md);
+      padding-bottom: var(--space-xl);
+    }
+  }
+</style>

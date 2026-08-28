@@ -1,0 +1,38 @@
+---
+import "../styles/global.css";
+import { localizedPath, type Lang, useTranslations } from "../i18n";
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+
+// Root-relative alternates. TODO: prefix with Astro.site once `site` is set in astro.config.
+const alternates: { hreflang: string; href: string }[] = [
+  { hreflang: "es", href: localizedPath("/", "es") },
+  { hreflang: "en", href: localizedPath("/", "en") },
+  { hreflang: "x-default", href: localizedPath("/", "es") },
+];
+---
+
+<!doctype html>
+<html lang={lang}>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <meta name="description" content={t.meta.description} />
+    <link rel="icon" href="/favicon.ico" sizes="any" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    {
+      alternates.map((a) => (
+        <link rel="alternate" hreflang={a.hreflang} href={a.href} />
+      ))
+    }
+    <title>{t.meta.title}</title>
+  </head>
+  <body>
+    <slot />
+  </body>
+</html>
