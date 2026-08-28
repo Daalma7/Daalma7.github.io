@@ -3,12 +3,14 @@ interface Props {
   images: string[];
   alt?: string;
   interval?: number;
+  labels: { prev: string; next: string; goTo: string };
 }
 
 const {
   images,
   alt = "Project image",
   interval = 4500,
+  labels,
 } = Astro.props;
 ---
 
@@ -44,7 +46,7 @@ const {
       <button
         class="gallery-arrow gallery-arrow-prev"
         type="button"
-        aria-label="Previous image"
+        aria-label={labels.prev}
         data-prev
       >
         ←
@@ -53,7 +55,7 @@ const {
       <button
         class="gallery-arrow gallery-arrow-next"
         type="button"
-        aria-label="Next image"
+        aria-label={labels.next}
         data-next
       >
         →
@@ -70,7 +72,7 @@ const {
                 { "is-active": index === 0 }
               ]}
               type="button"
-              aria-label={`Go to image ${index + 1}`}
+              aria-label={`${labels.goTo} ${index + 1}`}
               aria-current={index === 0 ? "true" : undefined}
               data-dot={index}
             >

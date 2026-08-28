@@ -1,23 +1,40 @@
 ---
 import ProjectGallery from "./ProjectGallery.astro";
+import { useTranslations, type Lang } from "../i18n";
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+const p = t.projects;
+const galleryLabels = t.gallery;
+
+// image sets keep their existing order: tfm, pokemon, covid
+const galleries = [
+  ["/images/tfm/1.png", "/images/tfm/2.png", "/images/tfm/3.png", "/images/tfm/4.png", "/images/tfm/5.png"],
+  ["/images/pokemon/1.png", "/images/pokemon/2.png", "/images/pokemon/3.png", "/images/pokemon/4.png", "/images/pokemon/5.png"],
+  ["/images/covid/1.png", "/images/covid/2.png", "/images/covid/3.png", "/images/covid/4.png"],
+];
+
+const githubUrls = [
+  "https://github.com/Daalma7/FairTreesAlgorithms",
+  "https://github.com/Daalma7/PokemonDataScience",
+  "https://github.com/Daalma7/CNNsXraysCOVID",
+];
 ---
 
 <section id="work" class="projects">
 
   <div class="projects-header">
 
-    <p class="section-label">
-      03 — PROYECTOS
-    </p>
+    <p class="section-label">{p.number} — {p.label}</p>
 
     <div>
-      <h2>
-        Transformando <em> ideas</em> en <em> realidades</em>.
-      </h2>
+      <h2><Fragment set:html={p.heading} /></h2>
 
-      <p class="projects-intro">
-        Una selección de proyectos y experimentos e ideas que exploran sobre docencia, datos, IA y sistemas interactivos.
-      </p>
+      <p class="projects-intro">{p.intro}</p>
     </div>
 
   </div>
@@ -28,21 +45,21 @@ import ProjectGallery from "./ProjectGallery.astro";
       href="#mathematics-projects"
       class="discipline-circle discipline-math"
     >
-      <span>MATEMÁTICAS</span>
+      <span set:html={p.disciplines.math} />
     </a>
 
     <a
       href="#ai-projects"
       class="discipline-circle discipline-ai"
     >
-      <span>INTELIGENCIA<br />ARTIFICIAL</span>
+      <span set:html={p.disciplines.ai} />
     </a>
 
     <a
       href="#game-projects"
       class="discipline-circle discipline-games"
     >
-      <span>DESARROLLO<br />DE JUEGOS</span>
+      <span set:html={p.disciplines.games} />
     </a>
 
   </div>
@@ -71,26 +88,18 @@ import ProjectGallery from "./ProjectGallery.astro";
 
               <div class="project-heading">
 
-                <p class="project-category">
-                  DATA SCIENCE · IA · MACHINE LEARNING
-                </p>
+                <p class="project-category">{p.items[0].category}</p>
 
-                <h3>
-                  Construyendo un <em> mundo más justo.</em>
-                </h3>
+                <h3><Fragment set:html={p.items[0].title} /></h3>
 
-                <h4>
-                  Desarrollo de Modelos de Aprendizaje Automático Justo basados en Árboles de Decisión.
-                </h4>
+                <h4>{p.items[0].subtitle}</h4>
 
               </div>
 
 
               <div class="project-description">
 
-                <p>
-                  Proyecto final de máster (MH) en el que construí modelos de aprendizaje automático que tuvieran en cuenta los sesgos de sus predicciones y que los minimizan mientras aprenden, utilizando optimización multiobjetivo, árboles de decisión y algoritmos genéticos.
-                </p>
+                <p>{p.items[0].description}</p>
 
 
                 <div class="project-tech">
@@ -143,7 +152,7 @@ import ProjectGallery from "./ProjectGallery.astro";
 
                 <a
                   class="project-github"
-                  href="https://github.com/Daalma7/FairTreesAlgorithms"
+                  href={githubUrls[0]}
                   target="_blank"
                   rel="noopener noreferrer"
                 >
@@ -172,9 +181,7 @@ import ProjectGallery from "./ProjectGallery.astro";
                     </svg>
                   </span>
 
-                  <span>
-                    Ver en GitHub
-                  </span>
+                  <span>{p.viewOnGithub}</span>
 
                   <span class="github-arrow">
                     ↗
@@ -192,15 +199,10 @@ import ProjectGallery from "./ProjectGallery.astro";
             <div class="project-gallery-wrapper">
 
               <ProjectGallery
-                images={[
-                  "/images/tfm/1.png",
-                  "/images/tfm/2.png",
-                  "/images/tfm/3.png",
-                  "/images/tfm/4.png",
-                  "/images/tfm/5.png",
-                ]}
-                alt="Pokémon Classification"
+                images={galleries[0]}
+                alt={p.items[0].galleryAlt}
                 interval={4500}
+                labels={galleryLabels}
               />
 
             </div>
@@ -231,28 +233,18 @@ import ProjectGallery from "./ProjectGallery.astro";
 
               <div class="project-heading">
 
-                <p class="project-category">
-                  DATA SCIENCE · IA · VISIÓN POR COMPUTADOR
-                </p>
+                <p class="project-category">{p.items[1].category}</p>
 
-                <h3>
-                  Encontrando patrones en
-                  <br />
-                  <em> nuestros gustos.</em>
-                </h3>
+                <h3><Fragment set:html={p.items[1].title} /></h3>
 
-                <h4>
-                  Pokémon Data Science
-                </h4>
+                <h4>{p.items[1].subtitle}</h4>
 
               </div>
 
 
               <div class="project-description">
 
-                <p>
-                  Un proyecto de ciencia de datos que incluye recopilación de información, análisis exploratorio, clustering y clasificación de imágenes usando deep learning y extracción de características.
-                </p>
+                <p>{p.items[1].description}</p>
 
 
                 <div class="project-tech">
@@ -313,7 +305,7 @@ import ProjectGallery from "./ProjectGallery.astro";
 
                 <a
                   class="project-github"
-                  href="https://github.com/Daalma7/PokemonDataScience"
+                  href={githubUrls[1]}
                   target="_blank"
                   rel="noopener noreferrer"
                 >
@@ -342,9 +334,7 @@ import ProjectGallery from "./ProjectGallery.astro";
                     </svg>
                   </span>
 
-                  <span>
-                    Ver en GitHub
-                  </span>
+                  <span>{p.viewOnGithub}</span>
 
                   <span class="github-arrow">
                     ↗
@@ -362,15 +352,10 @@ import ProjectGallery from "./ProjectGallery.astro";
             <div class="project-gallery-wrapper">
 
               <ProjectGallery
-                images={[
-                  "/images/pokemon/1.png",
-                  "/images/pokemon/2.png",
-                  "/images/pokemon/3.png",
-                  "/images/pokemon/4.png",
-                  "/images/pokemon/5.png",
-                ]}
-                alt="Pokémon Classification"
+                images={galleries[1]}
+                alt={p.items[1].galleryAlt}
                 interval={4500}
+                labels={galleryLabels}
               />
 
             </div>
@@ -405,26 +390,18 @@ import ProjectGallery from "./ProjectGallery.astro";
 
               <div class="project-heading">
 
-                <p class="project-category">
-                  IA · DEEP LEARNING · VISIÓN POR COMPUTADOR
-                </p>
+                <p class="project-category">{p.items[2].category}</p>
 
-                <h3>
-                  Identificando <em> y combatiendo enfermedades</em>.
-                </h3>
+                <h3><Fragment set:html={p.items[2].title} /></h3>
 
-                <h4>
-                  Clasificación de Radiografías de Pecho para la Detección de COVID-19 y Diferenciación de Otras Neumonías Víricas Usando CNNs.
-                </h4>
+                <h4>{p.items[2].subtitle}</h4>
 
               </div>
 
 
               <div class="project-description">
 
-                <p>
-                  Un proyecto que muestra el potencial de la IA como sistema de apoyo a la decisión médica e identificación y discriminación de enfermedades.
-                </p>
+                <p>{p.items[2].description}</p>
 
 
                 <div class="project-tech">
@@ -469,7 +446,7 @@ import ProjectGallery from "./ProjectGallery.astro";
 
                 <a
                   class="project-github"
-                  href="https://github.com/Daalma7/CNNsXraysCOVID"
+                  href={githubUrls[2]}
                   target="_blank"
                   rel="noopener noreferrer"
                 >
@@ -498,9 +475,7 @@ import ProjectGallery from "./ProjectGallery.astro";
                     </svg>
                   </span>
 
-                  <span>
-                    Ver en GitHub
-                  </span>
+                  <span>{p.viewOnGithub}</span>
 
                   <span class="github-arrow">
                     ↗
@@ -518,14 +493,10 @@ import ProjectGallery from "./ProjectGallery.astro";
             <div class="project-gallery-wrapper">
 
               <ProjectGallery
-                images={[
-                  "/images/covid/1.png",
-                  "/images/covid/2.png",
-                  "/images/covid/3.png",
-                  "/images/covid/4.png",
-                ]}
-                alt="Pokémon Classification"
+                images={galleries[2]}
+                alt={p.items[2].galleryAlt}
                 interval={4500}
+                labels={galleryLabels}
               />
 
             </div>
@@ -544,7 +515,7 @@ import ProjectGallery from "./ProjectGallery.astro";
 
     <div id="mathematics-projects" class="project-group">
 
-      <!-- PROJECT 02 -->
+      <!-- PROJECT 04 -->
 
       <article class="project">
 
@@ -561,49 +532,30 @@ import ProjectGallery from "./ProjectGallery.astro";
 
               <div class="project-heading">
 
-                <p class="project-category">
-                  MATEMÁTICAS · VISUALIZACIÓN
-                </p>
+                <p class="project-category">{p.items[3].category}</p>
 
-                <h3>
-                  Explorando
-                  <br />
-                  <em>ideas matemáticas.</em>
-                </h3>
+                <h3><Fragment set:html={p.items[3].title} /></h3>
 
-                <h4>
-                  Todo un mundo
-                </h4>
+                <h4>{p.items[3].subtitle}</h4>
 
               </div>
 
 
               <div class="project-description">
 
-                <p>
-                  Mi proyecto matemático lo constuyo en las aulas, donde todo el alumnado aprende y se nutre de él.
-                </p>
+                <p>{p.items[3].description}</p>
 
               </div>
 
-              <a
-                  class="project-github"
-                  href="https://github.com/Daalma7/PokemonDataScience"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
+              <a class="project-github" href="#teaching">
 
-                  
+                <span>{p.exploreTeaching}</span>
 
-                  <span>
-                    EXPLORA DOCENCIA
-                  </span>
+                <span class="github-arrow">
+                  ↗
+                </span>
 
-                  <span class="github-arrow">
-                    ↗
-                  </span>
-
-                </a>
+              </a>
 
             </div>
 
@@ -611,7 +563,7 @@ import ProjectGallery from "./ProjectGallery.astro";
             <div class="project-gallery-wrapper">
 
               <div class="math-placeholder">
-                <span>MATEMÁTICAS</span>
+                <span>{p.mathPlaceholder}</span>
               </div>
 
             </div>
@@ -624,9 +576,9 @@ import ProjectGallery from "./ProjectGallery.astro";
     
     </div>
 
-    <div id="game-projects" class="project-group" >
+    <div id="game-projects" class="project-group">
 
-      <!-- PROJECT 03 -->
+      <!-- PROJECT 05 -->
 
       <article class="project project-game">
 
@@ -643,28 +595,18 @@ import ProjectGallery from "./ProjectGallery.astro";
 
               <div class="project-heading">
 
-                <p class="project-category">
-                  DESARROLLO DE JUEGOS
-                </p>
+                <p class="project-category">{p.items[4].category}</p>
 
-                <h3>
-                  Construyendo
-                  <br />
-                  <em>mundos interactivos.</em>
-                </h3>
+                <h3><Fragment set:html={p.items[4].title} /></h3>
 
-                <h4>
-                  Un juego sin anunciar
-                </h4>
+                <h4>{p.items[4].subtitle}</h4>
 
               </div>
 
 
               <div class="project-description">
 
-                <p>
-                  Un proyecto personal que explora límites en términos de estrategia y coleccionismo.
-                </p>
+                <p>{p.items[4].description}</p>
 
 
                 <div class="project-tech">
@@ -672,11 +614,15 @@ import ProjectGallery from "./ProjectGallery.astro";
                   <img
                     src="https://img.shields.io/badge/Godot-478CBF?style=flat-square&logo=godot-engine&logoColor=white"
                     alt="Godot"
+                    loading="lazy"
+                    decoding="async"
                   />
 
                   <img
                     src="https://img.shields.io/badge/Game_Design-171717?style=flat-square"
                     alt="Game Design"
+                    loading="lazy"
+                    decoding="async"
                   />
 
                 </div>
@@ -690,19 +636,11 @@ import ProjectGallery from "./ProjectGallery.astro";
 
               <div class="game-placeholder">
 
-                <span>
-                  DESARROLLO DE JUEGOS
-                </span>
+                <span>{p.comingSoon.kicker}</span>
 
-                <strong>
-                  Se está
-                  <br />
-                   acercando.
-                </strong>
+                <strong><Fragment set:html={p.comingSoon.title} /></strong>
 
-                <small>
-                  Godot · Estrategia · Coleccionismo
-                </small>
+                <small>{p.comingSoon.meta}</small>
 
               </div>
 
