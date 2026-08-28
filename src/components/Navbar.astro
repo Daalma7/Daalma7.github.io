@@ -1,54 +1,54 @@
+---
+import { languages, localizedPath, useTranslations, type Lang } from "../i18n";
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+
+const navLinks = [
+  { href: "#about", label: t.nav.about },
+  { href: "#experience", label: t.nav.experience },
+  { href: "#work", label: t.nav.projects },
+  { href: "#teaching", label: t.nav.teaching },
+  { href: "#contact", label: t.nav.contact },
+];
+
+const langLinks = (["es", "en"] as Lang[]).map((code) => ({
+  code,
+  label: languages[code],
+  href: localizedPath("/", code),
+  current: code === lang,
+  aria: code === "es" ? t.nav.toEs : t.nav.toEn,
+}));
+---
+
 <nav class="navbar" id="navbar">
+  <a href="#top" class="navbar-logo">{t.nav.logo}</a>
 
-  <a href="#top" class="navbar-logo">
-    DAVID VILLAR MARTOS
-  </a>
-
-
-  <div class="navbar-links">
-
-    <a href="#about">
-      Sobre mí
-    </a>
-
-    <a href="#experience">
-      Experiencia
-    </a>
-
-    <a href="#work">
-      Proyectos
-    </a>
-
-    <a href="#teaching">
-      Docencia
-    </a>
-
-   <!-- <a href="#blog">
-      Journal
-    </a>
-    -->
-
-    <a href="#contact">
-      Contacto
-    </a>
-
+  <div class="navbar-links" id="navbar-links">
+    {navLinks.map((l) => <a href={l.href}>{l.label}</a>)}
   </div>
-
 
   <div class="navbar-language">
-
-    <a href="#">
-      ES
-    </a>
-
-    <span>/</span>
-
-    <a href="#">
-      EN
-    </a>
-
+    {
+      langLinks.map((l, i) => (
+        <>
+          {i > 0 && <span>/</span>}
+          <a
+            href={l.href}
+            aria-label={l.aria}
+            aria-current={l.current ? "true" : undefined}
+            class:list={["navbar-language-link", { "is-current": l.current }]}
+          >
+            {l.label}
+          </a>
+        </>
+      ))
+    }
   </div>
-
 </nav>
 
 
@@ -245,6 +245,11 @@
     font-size: 0.65rem;
 
     color: var(--muted);
+  }
+
+  .navbar-language-link.is-current {
+    font-weight: 600;
+    color: var(--foreground);
   }
 
 

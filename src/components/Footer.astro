@@ -1,13 +1,24 @@
+---
+import { localizedPath, languages, useTranslations, type Lang } from "../i18n";
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+---
+
 <footer class="footer">
 
   <div class="footer-top">
 
     <span>
-      DAVID VILLAR MARTOS
+      {t.nav.logo}
     </span>
 
     <span>
-      MATEMÁTICAS · IA · DATA SCIENCE
+      {t.footer.tagline}
     </span>
 
   </div>
@@ -15,7 +26,7 @@
   <div class="footer-bottom">
 
     <span>
-      © 2026 David Villar Martos
+      {t.footer.rights}
     </span>
 
     <div class="footer-links">
@@ -25,7 +36,7 @@
         href="https://github.com/Daalma7"
         target="_blank"
         rel="noopener noreferrer"
-        aria-label="GitHub"
+        aria-label={t.footer.github}
       >
         <svg viewBox="0 0 24 24" aria-hidden="true">
           <path
@@ -40,7 +51,7 @@
         href="https://www.linkedin.com/feed/"
         target="_blank"
         rel="noopener noreferrer"
-        aria-label="LinkedIn"
+        aria-label={t.footer.linkedin}
       >
         <svg viewBox="0 0 24 24" aria-hidden="true">
           <path
@@ -53,7 +64,7 @@
       <!-- Email -->
       <a
         href="mailto:villarmartosdavid@gmail.com"
-        aria-label="Email"
+        aria-label={t.footer.email}
       >
         <svg viewBox="0 0 24 24" aria-hidden="true">
           <path
@@ -65,9 +76,17 @@
 
     </div>
 
-    <span>
-      ES / EN
-    </span>
+    <div class="footer-language">
+      <a
+        href={localizedPath("/", "es")}
+        aria-current={lang === "es" ? "true" : undefined}
+      >{languages.es}</a>
+      <span>/</span>
+      <a
+        href={localizedPath("/", "en")}
+        aria-current={lang === "en" ? "true" : undefined}
+      >{languages.en}</a>
+    </div>
 
   </div>
 
