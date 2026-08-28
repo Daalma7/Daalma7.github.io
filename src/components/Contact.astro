@@ -1,25 +1,27 @@
-<section id = "contact" class="contact">
+---
+import { useTranslations, type Lang } from "../i18n";
 
-  <p class="section-label">
-    07 — CONTACTO
-  </p>
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+const c = t.contact;
+---
+
+<section id="contact" class="contact">
+
+  <p class="section-label">{c.number} — {c.label}</p>
 
   <div class="contact-content">
 
-    <h2>
-      Construyamos 
-      <em> juntos</em>
-    </h2>
+    <h2><Fragment set:html={c.heading} /></h2>
 
-    <p>
-      Ya sea matemáticas, tecnología, educación, IA, Data Science o desarrollo de juegos
-    </p>
+    <p>{c.body}</p>
 
-    <a
-      href="mailto:villarmartosdavid@gmail.com"
-      class="contact-link"
-    >
-      Contacta
+    <a href={`mailto:${c.email}`} class="contact-link">
+      {c.cta}
       <span>↗</span>
     </a>
 

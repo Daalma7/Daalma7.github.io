@@ -1,194 +1,79 @@
-<section id="teaching" class="teaching">
+---
+import { useTranslations, type Lang } from "../i18n";
 
-  <!-- ─────────────────────────────
-       HEADER
-  ───────────────────────────── -->
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+const te = t.teaching;
+
+// principle images stay tied to position
+const principleImages = [
+  "/images/teaching/preguntas.png",
+  "/images/teaching/horizontes.webp",
+  "/images/teaching/corazon.png",
+];
+---
+
+<section id="teaching" class="teaching">
 
   <div class="teaching-header">
 
-    <p class="section-label">
-      05 — DOCENCIA
-    </p>
+    <p class="section-label">{te.number} — {te.label}</p>
 
     <div class="teaching-header-content">
 
-      <h2>
-        Transformando <em> curiosidad</em> en <em> comprensión</em>.
-      </h2>
+      <h2><Fragment set:html={te.heading} /></h2>
 
-      <p class="teaching-intro">
-        Abogo por una educación pública y de calidad para todo el mundo, que exprima al máximo las capacidades de cada persona y sin importar nada más que el interés que uno tenga de alcanzar sus metas. Aquí plasmo unas pinceladas de mi filosofía como docente:
-      </p>
+      <p class="teaching-intro">{te.intro}</p>
 
     </div>
 
   </div>
 
 
-  <!-- ─────────────────────────────
-       PRINCIPLES
-  ───────────────────────────── -->
-
   <div class="teaching-principles">
 
+    {
+      te.principles.map((principle, i) => (
+        <article class="teaching-principle">
 
-    <!-- 01 -->
+          <div class="teaching-principle-number">{principle.number}</div>
 
-    <article class="teaching-principle">
+          <div class="teaching-principle-content">
 
-      <div class="teaching-principle-number">
-        01
-      </div>
+            <div class="teaching-principle-copy">
 
-      <div class="teaching-principle-content">
+              <p class="teaching-principle-label">{principle.label}</p>
 
-        <div class="teaching-principle-copy">
+              <h3><Fragment set:html={principle.title} /></h3>
 
-          <p class="teaching-principle-label">
-            QUERER SABER
-          </p>
+              {principle.paragraphs.map((para) => (
+                <p class="teaching-principle-text">{para}</p>
+              ))}
 
-          <h3>
-            Comenzar con 
-            <em> preguntas.</em>
-          </h3>
+            </div>
 
-          <p class="teaching-principle-text">
-            Siempre comienzo preguntando algo aparentemente simple, ya que el mejor
-            aprendizaje se produce en situaciones donde pica la curiosidad,
-            que motiven de manera intrínseca y movilicen todas las ideas matemáticas previas en lugar de solo recivir nuevas. Experimentar, hacer conjeturas,
-            identificar patrones... todo nace de esa motivación.
-          </p>
+            <div class="teaching-principle-image">
+              <img src={principleImages[i]} alt="" loading="lazy" />
+            </div>
 
-          <p class="teaching-principle-text">
-            A veces, la parte más valiosa del proceso de enseñanza-aprendizaje está en cómo hacer mejores preguntas.
-          </p>
+          </div>
 
-        </div>
-
-        <div class="teaching-principle-image">
-          <img
-            src="/images/teaching/preguntas.png"
-            alt=""
-            loading="lazy"
-          />
-        </div>
-
-      </div>
-
-    </article>
-
-
-    <!-- 02 -->
-
-    <article class="teaching-principle">
-
-      <div class="teaching-principle-number">
-        02
-      </div>
-
-      <div class="teaching-principle-content">
-
-        <div class="teaching-principle-copy">
-
-          <p class="teaching-principle-label">
-            QUERER SABER HACER
-          </p>
-
-          <h3>
-            Ampliar
-            <em> horizontes.</em>
-          </h3>
-
-          <p class="teaching-principle-text">
-            Las matemáticas están llenas de conceptos y relaciones que cuestan
-            ver al principio, pero que una vez entendemos, vemos con claridad.
-            Hay muchas maneras de hacer lo abstracto concreto: visualizar,
-            enlazar, observar, manipular... Las herramientas tecnológicas
-            también juegan un gran papel en que el alumnado pueda razonar y
-            construir su propio conocimiento.
-          </p>
-
-          <p class="teaching-principle-text">
-            Las matemáticas desbloquean nuevas formas de pensar, razonar y
-            entender la realidad que nos rodea.
-          </p>
-
-        </div>
-
-        <div class="teaching-principle-image">
-          <img
-            src="/images/teaching/horizontes.webp"
-            alt=""
-            loading="lazy"
-          />
-        </div>
-
-      </div>
-
-    </article>
-
-
-    <!-- 03 -->
-
-    <article class="teaching-principle">
-
-      <div class="teaching-principle-number">
-        03
-      </div>
-
-      <div class="teaching-principle-content">
-
-        <div class="teaching-principle-copy">
-
-          <p class="teaching-principle-label">
-            QUERER SABER SER
-          </p>
-
-          <h3>
-            Desde el
-            <em> corazón.</em>
-          </h3>
-
-          <p class="teaching-principle-text">
-            La vida me ha enseñado que lo más importante son las personas que nos rodean, y no puedo sentir más orgullo que el de trabajar educando y verlas crecer. Intento plasmar mi visión del mundo y dejar una huella en cada persona, vivir en su recuerdo y marcarlas de manera positiva para que puedan vivir mejor.
-
-          </p>
-
-          <p class="teaching-principle-text">
-            No se trata de ser felices al final, sino de valorar todo lo feliz que hay en el proceso.
-          </p>
-
-        </div>
-
-        <div class="teaching-principle-image">
-          <img
-            src="/images/teaching/corazon.png"
-            alt=""
-            loading="lazy"
-          />
-        </div>
-
-      </div>
-
-    </article>
+        </article>
+      ))
+    }
 
   </div>
 
 
-  <!-- ─────────────────────────────
-       CLOSING THOUGHT
-  ───────────────────────────── -->
-
   <div class="teaching-closing">
 
-    <p class="teaching-closing-label">
-      EDUCAR ES
-    </p>
+    <p class="teaching-closing-label">{te.closingLabel}</p>
 
-    <p class="teaching-closing-text">
-      Despertar la curiosidad, hacer visible lo abstracto y acompañar a cada persona a descubrir nuevas formas de pensar, comprender y disfrutar del proceso de aprender.
-    </p>
+    <p class="teaching-closing-text">{te.closingText}</p>
 
   </div>
 
