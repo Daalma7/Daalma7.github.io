@@ -1,0 +1,721 @@
+---
+import ProjectGallery from "./ProjectGallery.astro";
+---
+
+<section id="work" class="projects">
+
+  <div class="projects-header">
+
+    <p class="section-label">
+      03 — PROYECTOS
+    </p>
+
+    <div>
+      <h2>
+        Transformando <em> ideas</em> en <em> realidades</em>.
+      </h2>
+
+      <p class="projects-intro">
+        Una selección de proyectos y experimentos e ideas que exploran sobre docencia, datos, IA y sistemas interactivos.
+      </p>
+    </div>
+
+  </div>
+
+  <div class="project-disciplines">
+
+    <a
+      href="#mathematics-projects"
+      class="discipline-circle discipline-math"
+    >
+      <span>MATEMÁTICAS</span>
+    </a>
+
+    <a
+      href="#ai-projects"
+      class="discipline-circle discipline-ai"
+    >
+      <span>INTELIGENCIA<br />ARTIFICIAL</span>
+    </a>
+
+    <a
+      href="#game-projects"
+      class="discipline-circle discipline-games"
+    >
+      <span>DESARROLLO<br />DE JUEGOS</span>
+    </a>
+
+  </div>
+
+
+  <div class="project-list">
+
+    <div id="ai-projects" class="project-group">
+
+    <!-- PROJECT 01 — POKÉMON -->
+
+      <article class="project project-large">
+
+        <div class="project-number">
+          01
+        </div>
+
+
+        <div class="project-main">
+
+          <div class="project-content">
+
+            <!-- LEFT -->
+
+            <div class="project-info">
+
+              <div class="project-heading">
+
+                <p class="project-category">
+                  DATA SCIENCE · IA · MACHINE LEARNING
+                </p>
+
+                <h3>
+                  Construyendo un <em> mundo más justo.</em>
+                </h3>
+
+                <h4>
+                  Desarrollo de Modelos de Aprendizaje Automático Justo basados en Árboles de Decisión.
+                </h4>
+
+              </div>
+
+
+              <div class="project-description">
+
+                <p>
+                  Proyecto final de máster (MH) en el que construí modelos de aprendizaje automático que tuvieran en cuenta los sesgos de sus predicciones y que los minimizan mientras aprenden, utilizando optimización multiobjetivo, árboles de decisión y algoritmos genéticos.
+                </p>
+
+
+                <div class="project-tech">
+
+                  <img
+                    src="https://img.shields.io/badge/Python-3776AB?style=flat-square&logo=python&logoColor=white"
+                    alt="Python"
+                  />
+
+                  <img
+                    src="https://img.shields.io/badge/Cython-yellow.svg?style=flat-square&logo=data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI1MTIiIGhlaWdodD0iNTEyIiBzaGFwZS1yZW5kZXJpbmc9Imdlb21ldHJpY1ByZWNpc2lvbiIgaW1hZ2UtcmVuZGVyaW5nPSJvcHRpbWl6ZVF1YWxpdHkiIGZpbGwtcnVsZT0iZXZlbm9kZCIgZmlsbD0iI2VhZWJlYSIgeG1sbnM6dj0iaHR0cHM6Ly92ZWN0YS5pby9uYW5vIj48cGF0aCBkPSJNNTExLjUgMTQ3LjV2M2MtMzUuMzM1LjE2Ny03MC42NjggMC0xMDYtLjUtMjQuMjEzLTQ2LjEzMS02Mi4yMTMtNzMuMTMxLTExNC04MS00MC45MzEtNS41MTEtNzkuNTk4IDEuNDg5LTExNiAyMS0zMi40NDQgMjEuMTQtNTMuMjc4IDUwLjY0LTYyLjUgODguNS04LjgyMyA0Mi4xMjktOS44MjMgODQuNDYzLTMgMTI3IDcuMDM2IDQzLjkxMyAyNi41MzYgODEuMDc5IDU4LjUgMTExLjUgMjguMDc2IDIxLjk2OSA2MC4wNzYgMzIuNDY5IDk2IDMxLjUgMzguMTU3IDEuMzg3IDcyLjQ5MS05LjExMyAxMDMtMzEuNSAxMy4xNzMtMTEuMjA0IDIzLjg0LTI0LjM3IDMyLTM5LjVhMTcwMC41NiAxNzAwLjU2IDAgMCAxIDEwMS0uNWMtNDIuNTEzIDY3Ljk2NS0xMDMuODQ2IDEwNy4yOTgtMTg0IDExOC01NC4wMDYgNy41MTEtMTA3LjAwNiAzLjE3OC0xNTktMTNDODYuMTc3IDQ1NS4zNDQgMzcuNjc3IDQwNi4xNzcgMTIgMzM0LjVjLTYuMDUxLTIwLjA5LTEwLjIxNy00MC40MjMtMTIuNS02MXYtNDhjNS4wNzUtNTEuODEzIDI1LjU3NS05Ni40NzkgNjEuNS0xMzRDMTA4LjM3MyA0NC42OCAxNjUuNTQgMTguODQ3IDIzMi41IDE0YzU0LjQ4Mi01LjM2IDEwNy4xNDkgMS45NzQgMTU4IDIyIDUzLjMyNCAyMy4xNiA5My42NTcgNjAuMzI3IDEyMSAxMTEuNXoiIG9wYWNpdHk9Ii45ODMiLz48cGF0aCBkPSJNMjQ5LjUgMTAxLjVjMTQuMDA0LS4xNjcgMjguMDA0IDAgNDIgLjUgMTMuMjEyLjE3NCAyNS41NDUgMy41MDcgMzcgMTAgNy43NTYgNS42NjYgMTIuOTIyIDEzLjE2NiAxNS41IDIyLjUuNjY3IDI5IC42NjcgNTggMCA4Ny0zLjY2OCAxMy42NjctMTIuMTY4IDIyLjgzNC0yNS41IDI3LjVhMjE1MC4xOCAyMTUwLjE4IDAgMCAxLTkwIDJjLTIwLjIwMyAzLjg3MS0zMy4wMzcgMTUuNzA0LTM4LjUgMzUuNWEzNjQuMjcgMzY0LjI3IDAgMCAwLTEuNSA0M2MtNDAuNjA2IDcuNTQyLTYzLjEwNi05LjEyNS02Ny41LTUwLTQuNjY4LTI1LjY1Ny0yLjMzNC01MC42NTcgNy03NSA2LjI3Mi0xMi4yNjkgMTYuMTA1LTIwLjEwMiAyOS41LTIzLjUgMzcuNjMyLTEuNDYyIDc1LjI5OS0xLjk2MiAxMTMtMS41di04aC03M2E4NDAuMjcgODQwLjI3IDAgMCAxIC41LTQxYzIuMTM2LTEwLjEzOSA3Ljk2OS0xNy4zMDYgMTcuNS0yMS41IDExLjIyNS0zLjYwOSAyMi41NTgtNi4xMDkgMzQtNy41em0tMjMgMjNjMTIuMTUxLS4wMTUgMTcuMzE4IDUuOTg1IDE1LjUgMTgtMy44OTkgNy45NjktMTAuMDY2IDEwLjQ2OS0xOC41IDcuNS0xMC4wMTUtOS43MzYtOS4wMTUtMTguMjM2IDMtMjUuNXoiIG9wYWNpdHk9Ii45ODQiLz48cGF0aCBkPSJNMzUzLjUgMTc5LjVjMTEuMzM4LS4xNjcgMjIuNjcyIDAgMzQgLjUgMTMuNjA4IDMuNjA0IDIyLjc3NCAxMi4xMDQgMjcuNSAyNS41IDEzLjk3NSAzNy4yNzggMTEuOTc1IDczLjYxMS02IDEwOS00LjY3OSA3LjkxOS0xMS41MTIgMTIuNzUzLTIwLjUgMTQuNWwtMTE3IC41djloNzNjLjQyNSAxMy4zOTQtLjA3NSAyNi43MjctMS41IDQwLTMuNzc2IDguNzc2LTkuOTQyIDE1LjI3Ni0xOC41IDE5LjUtMzEuMDIgMTMuMzU3LTYyLjY4NyAxNS4wMjMtOTUgNS0xNS4zMTktNC4zMjYtMjUuODE5LTEzLjgyNi0zMS41LTI4LjUtLjY2Ny0yOC42NjctLjY2Ny01Ny4zMzMgMC04NiAzLjcwNy0xNC4yMzQgMTIuNTQtMjMuNzM0IDI2LjUtMjguNSAzMC4yOTktMS4yODYgNjAuNjMyLTEuOTUzIDkxLTIgMTkuMDg0LTQuNzUxIDMxLjI1LTE2LjU4NCAzNi41LTM1LjVhMzY0LjI3IDM2NC4yNyAwIDAgMCAxLjUtNDN6bS00NCAxNzhjMTIuODE1Ljk3MiAxNy42NDggNy42MzggMTQuNSAyMC01LjA2OCA3LjM2OC0xMS41NjggOC44NjgtMTkuNSA0LjUtNi4yMjktNi43MjUtNi41NjItMTMuNzI1LTEtMjEgMi4yMjctLjk0MSA0LjIyNy0yLjEwOCA2LTMuNXoiIG9wYWNpdHk9Ii45ODUiLz48L3N2Zz4="
+                    alt="Cython"
+                  />
+
+
+                  <img
+                    src="https://img.shields.io/badge/Scikit--Learn-F7931E?style=flat-square&logo=scikit-learn&logoColor=white"
+                    alt="Scikit-Learn"
+                  />
+
+                  <img
+                    src="https://img.shields.io/badge/Numpy-%23013243?style=flat-square&logo=numpy&logoColor=white"
+                    alt="Numpy"
+                  />
+
+
+                  <img
+                    src="https://img.shields.io/badge/Pandas-%23150458?style=flat-square&logo=pandas&logoColor=white"
+                    alt="Pandas"
+                  />
+
+                  <img
+                    src="https://img.shields.io/badge/Matplotlib-%23285479.svg?style=flat-square&logo=data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4KPHN2ZyB2aWV3Qm94PSIwIDAgNTAwIDUwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KICA8ZGVmcy8+CiAgPHBhdGggZD0iTSAyNDUuMzExIDYuMjc4IEMgNTguMjggOS4yNTIgLTU1LjQwMSAyMTMuNzk3IDQwLjY4NCAzNzQuNDYzIEMgMTM2Ljc3NCA1MzUuMTMgMzcwLjU2MyA1MzEuNDE1IDQ2MS41MDcgMzY3Ljc3NiBDIDU1MC43OTMgMjA3LjEyNCA0MzYuNjQ0IDkuMTk3IDI1My4wMjQgNi4yNzggTCAyNDUuMzExIDYuMjc4IFogTSAyNDUuMzExIDYwLjMzNiBDIDk5Ljg1NSA2My4zMDggMTIuMTU4IDIyMi44MDIgODcuNDU5IDM0Ny40MjMgQyAxNjIuNzU5IDQ3Mi4wNDUgMzQ0LjU3OCA0NjguMzI3IDQxNC43MzcgMzQwLjczNSBDIDQ2My4zNTQgMjUyLjMxMiA0MzMuMDczIDE0OS42NSAzNjAuNjI3IDk2LjQ0MiBDIDMzMC45ODIgNzQuNjY4IDI5NC4yNzUgNjEuMTc4IDI1My4wMjQgNjAuMzM2IEwgMjQ1LjMxMSA2MC4zMzYgWiBNIDI0NS4zMTEgMTE0LjM5MyBDIDE0MS40MzMgMTE3LjM2NiA3OS43MjYgMjMxLjc5OCAxMzQuMjM2IDMyMC4zNjggQyAxODguNzQ0IDQwOC45NDEgMzE4LjU4OSA0MDUuMjI2IDM2Ny45NTkgMzEzLjY4IEMgNDE1LjcwOCAyMjUuMTMzIDM1My41MDMgMTE3LjI2NSAyNTMuMDI0IDExNC4zOTMgTCAyNDUuMzExIDExNC4zOTMgWiBNIDI0NS4zMTEgMTY4LjQ1MSBDIDE4My4wMzEgMTcxLjQyNCAxNDcuMzE5IDI0MC43NzYgMTgxLjAzIDI5My4yODUgQyAyMTQuNzQzIDM0NS43OTQgMjkyLjU5MyAzNDIuMDc5IDMyMS4xNjIgMjg2LjU5NiBDIDM0OC4xOCAyMzQuMTI2IDMxMS45MjQgMTcxLjI2MSAyNTMuMDI0IDE2OC40NTEgTCAyNDUuMzExIDE2OC40NTEgWiBNIDI0NS4zMTEgMjIyLjUwOCBDIDIyNC43NDEgMjI1LjQ4MSAyMTUuMDk4IDI0OS42MjkgMjI3Ljk1NCAyNjUuOTc4IEMgMjQwLjgwOSAyODIuMzI2IDI2Ni41MjQgMjc4LjYxMiAyNzQuMjM3IDI1OS4yOSBDIDI4MC43MjUgMjQzLjA0NSAyNzAuMzE5IDIyNS4wMDYgMjUzLjAyNCAyMjIuNTA4IEwgMjQ1LjMxMSAyMjIuNTA4IFogTSA0OTIuMTU5IDI0OS41MzcgTCA2LjE3NiAyNDkuNTM3IE0gNDIyLjczMiA3NS43OCBMIDc1LjYwMyA0MjMuMjkzIE0gNDIyLjczMiA0MjMuMjkzIEwgNzUuNjAzIDc1Ljc4IE0gMjQ5LjE2NyA2LjI3OCBMIDI0OS4xNjcgNDkyLjc5NSIgc3R5bGU9InBhaW50LW9yZGVyOiBzdHJva2UgbWFya2VyczsgZmlsbC1ydWxlOiBldmVub2RkOyBmaWxsOiByZ2IoMjU1LCAyNTUsIDI1NSk7IGZpbGwtb3BhY2l0eTogMDsgc3Ryb2tlLXdpZHRoOiAxMHB4OyBzdHJva2U6IHJnYigyNTUsIDI1NSwgMjU1KTsiLz4KICA8cGF0aCBkPSJNIDE5NS4xNjkgMzMuMzA3IEwgMTE4LjAzIDcxLjkyIEwgMzgwLjMwNSA0MjcuMTU0IEwgNDE4Ljg3NSAzODguNTQyIEwgMjQ5LjE2NyAyNDkuNTM3IEwgMTk1LjE2OSAzMy4zMDcgWiIgc3R5bGU9ImZpbGw6IHJnYigyNTUsIDI1NSwgMjU1KTsiLz4KICA8cGF0aCBkPSJNIDY3Ljg4OCAxOTUuNDggTCA2Ny44ODggMzAzLjU5NCBMIDI0OS4xNjcgMjQ5LjUzNyBMIDY3Ljg4OCAxOTUuNDggWiIgc3R5bGU9ImZpbGw6IHJnYigyNTUsIDI1NSwgMjU1KTsiLz4KICA8cGF0aCBkPSJNIDI0OS4xNjcgMjQ5LjUzNyBMIDI3Mi4zMDkgMzg0LjY4IEwgMjI2LjAyNSAzODQuNjggTCAyNDkuMTY3IDI0OS41MzcgWiIgc3R5bGU9ImZpbGw6IHJnYigyNTUsIDI1NSwgMjU1KTsiLz4KICA8cGF0aCBkPSJNIDI0OS4xNjcgMjQ5LjUzNyBMIDI5OS4zMDkgOTUuMDg2IEwgMzM0LjAyMSAxMTQuMzkzIEwgMjQ5LjE2NyAyNDkuNTM3IFoiIHN0eWxlPSJmaWxsOiByZ2IoMjU1LCAyNTUsIDI1NSk7Ii8+CiAgPHBhdGggZD0iTSAyNDkuMTY3IDI0OS41MzcgTCAzMDMuMTY1IDIyNi4zNjkgTCAzMDcuMDIyIDI0MS44MTQgTCAyNDkuMTY3IDI0OS41MzcgWiBNIDI0OS4xNjcgMjQ5LjUzNyBMIDE0OC44ODUgMjk5LjczMyBMIDE2MC40NTcgMzE1LjE3OCBMIDI0OS4xNjcgMjQ5LjUzNyBaIiBzdHlsZT0iZmlsbDogcmdiKDI1NSwgMjU1LCAyNTUpOyIvPgo8L3N2Zz4=&logoColor=white"
+                    alt="Matplotlib"
+                  />
+
+                  <img
+                    src="https://img.shields.io/badge/Seaborn-%2388afbb.svg?style=flat-square&logo=data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA1MDAgNTAwIj48cGF0aCBkPSJNNiAyMDhjNy00NCAyNi04MiA1NC0xMTZBMjQyIDI0MiAwIDAgMSAyNzggNWEyMzkgMjM5IDAgMCAxIDE2MSA4NSAyNDggMjQ4IDAgMCAxIDU5IDE0OCAyNDYgMjQ2IDAgMCAxLTU2IDE2OGMtMjMgMjctNTEgNDgtODMgNjRBMjUxIDI1MSAwIDAgMSAyNyAzNTcgMjQ0IDI0NCAwIDAgMSA2IDIwOG0xNyAxMDNhMjM2IDIzNiAwIDAgMCAzNzcgMTE4Yzc3LTYxIDEwNi0xNjggNzAtMjU5QTIyNyAyMjcgMCAwIDAgMjc2IDE4IDIzMiAyMzIgMCAwIDAgMjMgMzEwWiIgZmlsbD0iI2ZmZiIgb3BhY2l0eT0iMSIvPjxwYXRoIGQ9Ik0yMyAzMTBBMjMzIDIzMyAwIDAgMSAyNzYgMThjOTUgMTIgMTYwIDYzIDE5NCAxNTEgMzYgOTEgNyAxOTgtNzAgMjYwQTIzNiAyMzYgMCAwIDEgMjMgMzEwbTQwNi0xODloMWwtMS0yLTEwLTEzYy02MC02NS0xMzUtOTAtMjIzLTcwQzEzNSA1MCA5MCA4NyA1NyAxNDBjLTcgMTItMTIgMjUtMTcgMzhsMiAyIDM1LTRjMjYtNiA1My05IDc3LTE5IDM1LTEzIDY5LTMwIDEwMy00NiA0NC0yMSA4OS0yNiAxMzYtNmwzNiAxNk0zNiAyODBsLTUgNCAxMCA0MiA1Mi0yM2MzNi0xNSA3My0xNiAxMDktMiAyMCA4IDM5IDE2IDU3IDI2IDUyIDI3IDEwNiA0NyAxNjUgNTEgNSAwIDgtMSAxMS01IDE4LTI4IDMwLTU4IDM1LTkwLTE3LTYtMzQtMTAtNTAtMTctMzEtMTMtNjEtMjgtOTItNDMtNTEtMjUtMTAzLTI2LTE1NCAwbC00MiAyMWMtMzEgMTUtNjIgMjktOTYgMzZtMTQyIDI2Yy00OS0xMC05MSA4LTEzMyAzMCAzOSA3OSAxMDAgMTI2IDE4OCAxMzMgNzYgNiAxMzgtMjIgMTg4LTc4LTI1LTUtNDktOS03My0xNi0zNy05LTcwLTI4LTEwNC00NGwtNjYtMjVtLTM0LTgwIDM1LTE3YzQ0LTIxIDg5LTI0IDEzNS0zbDUzIDI1YzI5IDE0IDU4IDI3IDg5IDM1bDE2IDRjMy00MS00LTc5LTIxLTExNS01LTEwLTExLTE4LTIyLTIybC0zMC0xNGMtNDAtMTctODAtMjEtMTIxLTRsLTY2IDMwYy01MyAyOC0xMTAgNDQtMTcwIDQ3LTUgMC03IDItOCA3bC02IDM3djM0YzQyLTggNzktMjYgMTE2LTQ0WiIgZmlsbD0idHJhbnNwYXJlbnQiIG9wYWNpdHk9IjEiLz48cGF0aCBkPSJNMzYgMjgwYzM0LTcgNjUtMjEgOTYtMzZsNDItMjFjNTEtMjYgMTAzLTI1IDE1NCAwIDMxIDE1IDYxIDMwIDkyIDQzIDE2IDcgMzMgMTEgNTAgMTctNSAzMi0xNyA2Mi0zNSA5MC0zIDQtNiA1LTExIDUtNTktNC0xMTMtMjQtMTY1LTUxLTE4LTEwLTM3LTE4LTU3LTI2LTM2LTE0LTczLTEzLTEwOSAybC01MiAyMy0xMC00MiA1LTRaIiBmaWxsPSIjZmZmIiBvcGFjaXR5PSIxIi8+PHBhdGggZD0ibTE3OSAzMDYgNjUgMjVjMzQgMTYgNjcgMzUgMTA0IDQ0IDI0IDcgNDggMTEgNzMgMTYtNTAgNTYtMTEyIDg0LTE4OCA3OC04OC03LTE0OS01NC0xODgtMTMzIDQyLTIyIDg0LTQwIDEzNC0zMFptLTM2LTgwYy0zNiAxOC03MyAzNi0xMTUgNDR2LTM0bDYtMzdjMS01IDMtNyA4LTcgNjAtMyAxMTctMTkgMTcwLTQ3bDY2LTMwYzQxLTE3IDgxLTEzIDEyMSA0bDMwIDE0YzExIDQgMTcgMTIgMjIgMjIgMTcgMzYgMjQgNzQgMjEgMTE1bC0xNi00Yy0zMS04LTYwLTIxLTg5LTM1bC01My0yNWMtNDYtMjEtOTEtMTgtMTM1IDNsLTM2IDE3WiIgZmlsbD0iI2ZmZiIgb3BhY2l0eT0iMSIvPjxwYXRoIGQ9Im00MjkgMTIwLTM2LTE1Yy00Ny0yMC05Mi0xNS0xMzYgNi0zNCAxNi02OCAzMy0xMDMgNDYtMjQgMTAtNTEgMTMtNzcgMTlsLTM1IDQtMi0yYzUtMTMgMTAtMjYgMTctMzggMzMtNTMgNzgtOTAgMTM5LTEwNCA4OC0yMCAxNjMgNSAyMjMgNzBsMTAgMTRaIiBmaWxsPSIjZmZmIiBvcGFjaXR5PSIxIi8+PHBhdGggZD0ibTQyOSAxMjAgMSAxaC0xdi0xWiIgZmlsbD0iI0IzRDZERSIgb3BhY2l0eT0iMSIvPjwvc3ZnPg==&logoColor=white"
+                    alt="Seaborn"
+                  />
+
+                  <img
+                    src="https://img.shields.io/badge/-Plotly-3F4F75?style=flat-square&logo=plotly&logoColor=white"
+                    alt="Plotly"
+                  />
+
+
+                </div>
+
+
+                <a
+                  class="project-github"
+                  href="https://github.com/Daalma7/FairTreesAlgorithms"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+
+                  <span class="github-icon">
+                    <svg
+                      viewBox="0 0 24 24"
+                      aria-hidden="true"
+                    >
+                      <path
+                        fill="currentColor"
+                        d="M12 .5C5.65.5.5 5.65.5 12c0 5.08
+                        3.29 9.39 7.86 10.91.58.11.79-.25.79-.56
+                        0-.28-.01-1.02-.02-2-3.2.7-3.88-1.54-3.88-1.54
+                        -.53-1.33-1.28-1.68-1.28-1.68-1.05-.72.08-.71.08-.71
+                        1.16.08 1.77 1.19 1.77 1.19 1.03 1.77 2.7 1.26
+                        3.36.96.1-.75.4-1.26.73-1.55-2.55-.29-5.23-1.28
+                        -5.23-5.69 0-1.26.45-2.29 1.19-3.1-.12-.29-.52-1.46
+                        .11-3.05 0 0 .97-.31 3.17 1.18a11 11 0 0 1 5.77 0
+                        c2.2-1.49 3.17-1.18 3.17-1.18.63 1.59.23 2.76.11 3.05
+                        .74.81 1.19 1.84 1.19 3.1 0 4.42-2.69 5.39-5.25
+                        5.68.41.35.78 1.04.78 2.1 0 1.52-.01 2.74-.01 3.11
+                        0 .31.21.67.8.56C20.71 21.39 24 17.08 24 12
+                        24 5.65 18.35.5 12 .5Z"
+                      />
+                    </svg>
+                  </span>
+
+                  <span>
+                    Ver en GitHub
+                  </span>
+
+                  <span class="github-arrow">
+                    ↗
+                  </span>
+
+                </a>
+
+              </div>
+
+            </div>
+
+
+            <!-- RIGHT -->
+
+            <div class="project-gallery-wrapper">
+
+              <ProjectGallery
+                images={[
+                  "/images/tfm/1.png",
+                  "/images/tfm/2.png",
+                  "/images/tfm/3.png",
+                  "/images/tfm/4.png",
+                  "/images/tfm/5.png",
+                ]}
+                alt="Pokémon Classification"
+                interval={4500}
+              />
+
+            </div>
+
+          </div>
+
+        </div>
+
+      </article>
+
+
+
+
+      <article class="project project-large">
+
+        <div class="project-number">
+          02
+        </div>
+
+
+        <div class="project-main">
+
+          <div class="project-content">
+
+            <!-- LEFT -->
+
+            <div class="project-info">
+
+              <div class="project-heading">
+
+                <p class="project-category">
+                  DATA SCIENCE · IA · VISIÓN POR COMPUTADOR
+                </p>
+
+                <h3>
+                  Encontrando patrones en
+                  <br />
+                  <em> nuestros gustos.</em>
+                </h3>
+
+                <h4>
+                  Pokémon Data Science
+                </h4>
+
+              </div>
+
+
+              <div class="project-description">
+
+                <p>
+                  Un proyecto de ciencia de datos que incluye recopilación de información, análisis exploratorio, clustering y clasificación de imágenes usando deep learning y extracción de características.
+                </p>
+
+
+                <div class="project-tech">
+
+                  <img
+                    src="https://img.shields.io/badge/Python-3776AB?style=flat-square&logo=python&logoColor=white"
+                    alt="Python"
+                  />
+
+                  <img
+                    src="https://img.shields.io/badge/Scikit--Learn-F7931E?style=flat-square&logo=scikit-learn&logoColor=white"
+                    alt="Scikit-Learn"
+                  />
+
+                  <img
+                    src="https://img.shields.io/badge/Numpy-%23013243?style=flat-square&logo=numpy&logoColor=white"
+                    alt="Numpy"
+                  />
+
+
+                  <img
+                    src="https://img.shields.io/badge/Pandas-%23150458?style=flat-square&logo=pandas&logoColor=white"
+                    alt="Pandas"
+                  />
+
+                  <img
+                    src="https://img.shields.io/badge/Matplotlib-%23285479.svg?style=flat-square&logo=data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4KPHN2ZyB2aWV3Qm94PSIwIDAgNTAwIDUwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KICA8ZGVmcy8+CiAgPHBhdGggZD0iTSAyNDUuMzExIDYuMjc4IEMgNTguMjggOS4yNTIgLTU1LjQwMSAyMTMuNzk3IDQwLjY4NCAzNzQuNDYzIEMgMTM2Ljc3NCA1MzUuMTMgMzcwLjU2MyA1MzEuNDE1IDQ2MS41MDcgMzY3Ljc3NiBDIDU1MC43OTMgMjA3LjEyNCA0MzYuNjQ0IDkuMTk3IDI1My4wMjQgNi4yNzggTCAyNDUuMzExIDYuMjc4IFogTSAyNDUuMzExIDYwLjMzNiBDIDk5Ljg1NSA2My4zMDggMTIuMTU4IDIyMi44MDIgODcuNDU5IDM0Ny40MjMgQyAxNjIuNzU5IDQ3Mi4wNDUgMzQ0LjU3OCA0NjguMzI3IDQxNC43MzcgMzQwLjczNSBDIDQ2My4zNTQgMjUyLjMxMiA0MzMuMDczIDE0OS42NSAzNjAuNjI3IDk2LjQ0MiBDIDMzMC45ODIgNzQuNjY4IDI5NC4yNzUgNjEuMTc4IDI1My4wMjQgNjAuMzM2IEwgMjQ1LjMxMSA2MC4zMzYgWiBNIDI0NS4zMTEgMTE0LjM5MyBDIDE0MS40MzMgMTE3LjM2NiA3OS43MjYgMjMxLjc5OCAxMzQuMjM2IDMyMC4zNjggQyAxODguNzQ0IDQwOC45NDEgMzE4LjU4OSA0MDUuMjI2IDM2Ny45NTkgMzEzLjY4IEMgNDE1LjcwOCAyMjUuMTMzIDM1My41MDMgMTE3LjI2NSAyNTMuMDI0IDExNC4zOTMgTCAyNDUuMzExIDExNC4zOTMgWiBNIDI0NS4zMTEgMTY4LjQ1MSBDIDE4My4wMzEgMTcxLjQyNCAxNDcuMzE5IDI0MC43NzYgMTgxLjAzIDI5My4yODUgQyAyMTQuNzQzIDM0NS43OTQgMjkyLjU5MyAzNDIuMDc5IDMyMS4xNjIgMjg2LjU5NiBDIDM0OC4xOCAyMzQuMTI2IDMxMS45MjQgMTcxLjI2MSAyNTMuMDI0IDE2OC40NTEgTCAyNDUuMzExIDE2OC40NTEgWiBNIDI0NS4zMTEgMjIyLjUwOCBDIDIyNC43NDEgMjI1LjQ4MSAyMTUuMDk4IDI0OS42MjkgMjI3Ljk1NCAyNjUuOTc4IEMgMjQwLjgwOSAyODIuMzI2IDI2Ni41MjQgMjc4LjYxMiAyNzQuMjM3IDI1OS4yOSBDIDI4MC43MjUgMjQzLjA0NSAyNzAuMzE5IDIyNS4wMDYgMjUzLjAyNCAyMjIuNTA4IEwgMjQ1LjMxMSAyMjIuNTA4IFogTSA0OTIuMTU5IDI0OS41MzcgTCA2LjE3NiAyNDkuNTM3IE0gNDIyLjczMiA3NS43OCBMIDc1LjYwMyA0MjMuMjkzIE0gNDIyLjczMiA0MjMuMjkzIEwgNzUuNjAzIDc1Ljc4IE0gMjQ5LjE2NyA2LjI3OCBMIDI0OS4xNjcgNDkyLjc5NSIgc3R5bGU9InBhaW50LW9yZGVyOiBzdHJva2UgbWFya2VyczsgZmlsbC1ydWxlOiBldmVub2RkOyBmaWxsOiByZ2IoMjU1LCAyNTUsIDI1NSk7IGZpbGwtb3BhY2l0eTogMDsgc3Ryb2tlLXdpZHRoOiAxMHB4OyBzdHJva2U6IHJnYigyNTUsIDI1NSwgMjU1KTsiLz4KICA8cGF0aCBkPSJNIDE5NS4xNjkgMzMuMzA3IEwgMTE4LjAzIDcxLjkyIEwgMzgwLjMwNSA0MjcuMTU0IEwgNDE4Ljg3NSAzODguNTQyIEwgMjQ5LjE2NyAyNDkuNTM3IEwgMTk1LjE2OSAzMy4zMDcgWiIgc3R5bGU9ImZpbGw6IHJnYigyNTUsIDI1NSwgMjU1KTsiLz4KICA8cGF0aCBkPSJNIDY3Ljg4OCAxOTUuNDggTCA2Ny44ODggMzAzLjU5NCBMIDI0OS4xNjcgMjQ5LjUzNyBMIDY3Ljg4OCAxOTUuNDggWiIgc3R5bGU9ImZpbGw6IHJnYigyNTUsIDI1NSwgMjU1KTsiLz4KICA8cGF0aCBkPSJNIDI0OS4xNjcgMjQ5LjUzNyBMIDI3Mi4zMDkgMzg0LjY4IEwgMjI2LjAyNSAzODQuNjggTCAyNDkuMTY3IDI0OS41MzcgWiIgc3R5bGU9ImZpbGw6IHJnYigyNTUsIDI1NSwgMjU1KTsiLz4KICA8cGF0aCBkPSJNIDI0OS4xNjcgMjQ5LjUzNyBMIDI5OS4zMDkgOTUuMDg2IEwgMzM0LjAyMSAxMTQuMzkzIEwgMjQ5LjE2NyAyNDkuNTM3IFoiIHN0eWxlPSJmaWxsOiByZ2IoMjU1LCAyNTUsIDI1NSk7Ii8+CiAgPHBhdGggZD0iTSAyNDkuMTY3IDI0OS41MzcgTCAzMDMuMTY1IDIyNi4zNjkgTCAzMDcuMDIyIDI0MS44MTQgTCAyNDkuMTY3IDI0OS41MzcgWiBNIDI0OS4xNjcgMjQ5LjUzNyBMIDE0OC44ODUgMjk5LjczMyBMIDE2MC40NTcgMzE1LjE3OCBMIDI0OS4xNjcgMjQ5LjUzNyBaIiBzdHlsZT0iZmlsbDogcmdiKDI1NSwgMjU1LCAyNTUpOyIvPgo8L3N2Zz4=&logoColor=white"
+                    alt="Matplotlib"
+                  />
+
+                  <img
+                    src="https://img.shields.io/badge/Seaborn-%2388afbb.svg?style=flat-square&logo=data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA1MDAgNTAwIj48cGF0aCBkPSJNNiAyMDhjNy00NCAyNi04MiA1NC0xMTZBMjQyIDI0MiAwIDAgMSAyNzggNWEyMzkgMjM5IDAgMCAxIDE2MSA4NSAyNDggMjQ4IDAgMCAxIDU5IDE0OCAyNDYgMjQ2IDAgMCAxLTU2IDE2OGMtMjMgMjctNTEgNDgtODMgNjRBMjUxIDI1MSAwIDAgMSAyNyAzNTcgMjQ0IDI0NCAwIDAgMSA2IDIwOG0xNyAxMDNhMjM2IDIzNiAwIDAgMCAzNzcgMTE4Yzc3LTYxIDEwNi0xNjggNzAtMjU5QTIyNyAyMjcgMCAwIDAgMjc2IDE4IDIzMiAyMzIgMCAwIDAgMjMgMzEwWiIgZmlsbD0iI2ZmZiIgb3BhY2l0eT0iMSIvPjxwYXRoIGQ9Ik0yMyAzMTBBMjMzIDIzMyAwIDAgMSAyNzYgMThjOTUgMTIgMTYwIDYzIDE5NCAxNTEgMzYgOTEgNyAxOTgtNzAgMjYwQTIzNiAyMzYgMCAwIDEgMjMgMzEwbTQwNi0xODloMWwtMS0yLTEwLTEzYy02MC02NS0xMzUtOTAtMjIzLTcwQzEzNSA1MCA5MCA4NyA1NyAxNDBjLTcgMTItMTIgMjUtMTcgMzhsMiAyIDM1LTRjMjYtNiA1My05IDc3LTE5IDM1LTEzIDY5LTMwIDEwMy00NiA0NC0yMSA4OS0yNiAxMzYtNmwzNiAxNk0zNiAyODBsLTUgNCAxMCA0MiA1Mi0yM2MzNi0xNSA3My0xNiAxMDktMiAyMCA4IDM5IDE2IDU3IDI2IDUyIDI3IDEwNiA0NyAxNjUgNTEgNSAwIDgtMSAxMS01IDE4LTI4IDMwLTU4IDM1LTkwLTE3LTYtMzQtMTAtNTAtMTctMzEtMTMtNjEtMjgtOTItNDMtNTEtMjUtMTAzLTI2LTE1NCAwbC00MiAyMWMtMzEgMTUtNjIgMjktOTYgMzZtMTQyIDI2Yy00OS0xMC05MSA4LTEzMyAzMCAzOSA3OSAxMDAgMTI2IDE4OCAxMzMgNzYgNiAxMzgtMjIgMTg4LTc4LTI1LTUtNDktOS03My0xNi0zNy05LTcwLTI4LTEwNC00NGwtNjYtMjVtLTM0LTgwIDM1LTE3YzQ0LTIxIDg5LTI0IDEzNS0zbDUzIDI1YzI5IDE0IDU4IDI3IDg5IDM1bDE2IDRjMy00MS00LTc5LTIxLTExNS01LTEwLTExLTE4LTIyLTIybC0zMC0xNGMtNDAtMTctODAtMjEtMTIxLTRsLTY2IDMwYy01MyAyOC0xMTAgNDQtMTcwIDQ3LTUgMC03IDItOCA3bC02IDM3djM0YzQyLTggNzktMjYgMTE2LTQ0WiIgZmlsbD0idHJhbnNwYXJlbnQiIG9wYWNpdHk9IjEiLz48cGF0aCBkPSJNMzYgMjgwYzM0LTcgNjUtMjEgOTYtMzZsNDItMjFjNTEtMjYgMTAzLTI1IDE1NCAwIDMxIDE1IDYxIDMwIDkyIDQzIDE2IDcgMzMgMTEgNTAgMTctNSAzMi0xNyA2Mi0zNSA5MC0zIDQtNiA1LTExIDUtNTktNC0xMTMtMjQtMTY1LTUxLTE4LTEwLTM3LTE4LTU3LTI2LTM2LTE0LTczLTEzLTEwOSAybC01MiAyMy0xMC00MiA1LTRaIiBmaWxsPSIjZmZmIiBvcGFjaXR5PSIxIi8+PHBhdGggZD0ibTE3OSAzMDYgNjUgMjVjMzQgMTYgNjcgMzUgMTA0IDQ0IDI0IDcgNDggMTEgNzMgMTYtNTAgNTYtMTEyIDg0LTE4OCA3OC04OC03LTE0OS01NC0xODgtMTMzIDQyLTIyIDg0LTQwIDEzNC0zMFptLTM2LTgwYy0zNiAxOC03MyAzNi0xMTUgNDR2LTM0bDYtMzdjMS01IDMtNyA4LTcgNjAtMyAxMTctMTkgMTcwLTQ3bDY2LTMwYzQxLTE3IDgxLTEzIDEyMSA0bDMwIDE0YzExIDQgMTcgMTIgMjIgMjIgMTcgMzYgMjQgNzQgMjEgMTE1bC0xNi00Yy0zMS04LTYwLTIxLTg5LTM1bC01My0yNWMtNDYtMjEtOTEtMTgtMTM1IDNsLTM2IDE3WiIgZmlsbD0iI2ZmZiIgb3BhY2l0eT0iMSIvPjxwYXRoIGQ9Im00MjkgMTIwLTM2LTE1Yy00Ny0yMC05Mi0xNS0xMzYgNi0zNCAxNi02OCAzMy0xMDMgNDYtMjQgMTAtNTEgMTMtNzcgMTlsLTM1IDQtMi0yYzUtMTMgMTAtMjYgMTctMzggMzMtNTMgNzgtOTAgMTM5LTEwNCA4OC0yMCAxNjMgNSAyMjMgNzBsMTAgMTRaIiBmaWxsPSIjZmZmIiBvcGFjaXR5PSIxIi8+PHBhdGggZD0ibTQyOSAxMjAgMSAxaC0xdi0xWiIgZmlsbD0iI0IzRDZERSIgb3BhY2l0eT0iMSIvPjwvc3ZnPg==&logoColor=white"
+                    alt="Seaborn"
+                  />
+
+                  <img
+                    src="https://img.shields.io/badge/-Plotly-3F4F75?style=flat-square&logo=plotly&logoColor=white"
+                    alt="Plotly"
+                  />
+
+                  <img
+                    src="https://img.shields.io/badge/TensorFlow-FF6F00?style=flat-square&logo=tensorflow&logoColor=white"
+                    alt="TensorFlow"
+                  />
+
+                  <img
+                    src="https://img.shields.io/badge/-Keras-D00000?style=flat-square&logo=Keras"
+                    alt="Keras"
+                  />
+
+                  <img
+                    src="https://img.shields.io/badge/Jupyter-%23FA0F00.svg?style=flat-square&logo=jupyter&logoColor=white"
+                    alt="Jupyter Notebook"
+                  />
+
+                </div>
+
+
+                <a
+                  class="project-github"
+                  href="https://github.com/Daalma7/PokemonDataScience"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+
+                  <span class="github-icon">
+                    <svg
+                      viewBox="0 0 24 24"
+                      aria-hidden="true"
+                    >
+                      <path
+                        fill="currentColor"
+                        d="M12 .5C5.65.5.5 5.65.5 12c0 5.08
+                        3.29 9.39 7.86 10.91.58.11.79-.25.79-.56
+                        0-.28-.01-1.02-.02-2-3.2.7-3.88-1.54-3.88-1.54
+                        -.53-1.33-1.28-1.68-1.28-1.68-1.05-.72.08-.71.08-.71
+                        1.16.08 1.77 1.19 1.77 1.19 1.03 1.77 2.7 1.26
+                        3.36.96.1-.75.4-1.26.73-1.55-2.55-.29-5.23-1.28
+                        -5.23-5.69 0-1.26.45-2.29 1.19-3.1-.12-.29-.52-1.46
+                        .11-3.05 0 0 .97-.31 3.17 1.18a11 11 0 0 1 5.77 0
+                        c2.2-1.49 3.17-1.18 3.17-1.18.63 1.59.23 2.76.11 3.05
+                        .74.81 1.19 1.84 1.19 3.1 0 4.42-2.69 5.39-5.25
+                        5.68.41.35.78 1.04.78 2.1 0 1.52-.01 2.74-.01 3.11
+                        0 .31.21.67.8.56C20.71 21.39 24 17.08 24 12
+                        24 5.65 18.35.5 12 .5Z"
+                      />
+                    </svg>
+                  </span>
+
+                  <span>
+                    Ver en GitHub
+                  </span>
+
+                  <span class="github-arrow">
+                    ↗
+                  </span>
+
+                </a>
+
+              </div>
+
+            </div>
+
+
+            <!-- RIGHT -->
+
+            <div class="project-gallery-wrapper">
+
+              <ProjectGallery
+                images={[
+                  "/images/pokemon/1.png",
+                  "/images/pokemon/2.png",
+                  "/images/pokemon/3.png",
+                  "/images/pokemon/4.png",
+                  "/images/pokemon/5.png",
+                ]}
+                alt="Pokémon Classification"
+                interval={4500}
+              />
+
+            </div>
+
+          </div>
+
+        </div>
+
+      </article>
+
+
+
+
+
+
+
+
+      <article class="project project-large">
+
+        <div class="project-number">
+          03
+        </div>
+
+
+        <div class="project-main">
+
+          <div class="project-content">
+
+            <!-- LEFT -->
+
+            <div class="project-info">
+
+              <div class="project-heading">
+
+                <p class="project-category">
+                  IA · DEEP LEARNING · VISIÓN POR COMPUTADOR
+                </p>
+
+                <h3>
+                  Identificando <em> y combatiendo enfermedades</em>.
+                </h3>
+
+                <h4>
+                  Clasificación de Radiografías de Pecho para la Detección de COVID-19 y Diferenciación de Otras Neumonías Víricas Usando CNNs.
+                </h4>
+
+              </div>
+
+
+              <div class="project-description">
+
+                <p>
+                  Un proyecto que muestra el potencial de la IA como sistema de apoyo a la decisión médica e identificación y discriminación de enfermedades.
+                </p>
+
+
+                <div class="project-tech">
+
+                  <img
+                    src="https://img.shields.io/badge/Python-3776AB?style=flat-square&logo=python&logoColor=white"
+                    alt="Python"
+                  />
+
+                  <img
+                    src="https://img.shields.io/badge/-Keras-D00000?style=flat-square&logo=Keras"
+                    alt="Keras"
+                  />
+
+                  <img
+                    src="https://img.shields.io/badge/TensorFlow-FF6F00?style=flat-square&logo=tensorflow&logoColor=white"
+                    alt="TensorFlow"
+                  />
+
+                  <img
+                    src="https://img.shields.io/badge/Scikit--Learn-F7931E?style=flat-square&logo=scikit-learn&logoColor=white"
+                    alt="Scikit-Learn"
+                  />
+
+                  <img
+                    src="https://img.shields.io/badge/Numpy-%23013243?style=flat-square&logo=numpy&logoColor=white"
+                    alt="Numpy"
+                  />
+
+                  <img
+                    src="https://img.shields.io/badge/Matplotlib-%23285479.svg?style=flat-square&logo=data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4KPHN2ZyB2aWV3Qm94PSIwIDAgNTAwIDUwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KICA8ZGVmcy8+CiAgPHBhdGggZD0iTSAyNDUuMzExIDYuMjc4IEMgNTguMjggOS4yNTIgLTU1LjQwMSAyMTMuNzk3IDQwLjY4NCAzNzQuNDYzIEMgMTM2Ljc3NCA1MzUuMTMgMzcwLjU2MyA1MzEuNDE1IDQ2MS41MDcgMzY3Ljc3NiBDIDU1MC43OTMgMjA3LjEyNCA0MzYuNjQ0IDkuMTk3IDI1My4wMjQgNi4yNzggTCAyNDUuMzExIDYuMjc4IFogTSAyNDUuMzExIDYwLjMzNiBDIDk5Ljg1NSA2My4zMDggMTIuMTU4IDIyMi44MDIgODcuNDU5IDM0Ny40MjMgQyAxNjIuNzU5IDQ3Mi4wNDUgMzQ0LjU3OCA0NjguMzI3IDQxNC43MzcgMzQwLjczNSBDIDQ2My4zNTQgMjUyLjMxMiA0MzMuMDczIDE0OS42NSAzNjAuNjI3IDk2LjQ0MiBDIDMzMC45ODIgNzQuNjY4IDI5NC4yNzUgNjEuMTc4IDI1My4wMjQgNjAuMzM2IEwgMjQ1LjMxMSA2MC4zMzYgWiBNIDI0NS4zMTEgMTE0LjM5MyBDIDE0MS40MzMgMTE3LjM2NiA3OS43MjYgMjMxLjc5OCAxMzQuMjM2IDMyMC4zNjggQyAxODguNzQ0IDQwOC45NDEgMzE4LjU4OSA0MDUuMjI2IDM2Ny45NTkgMzEzLjY4IEMgNDE1LjcwOCAyMjUuMTMzIDM1My41MDMgMTE3LjI2NSAyNTMuMDI0IDExNC4zOTMgTCAyNDUuMzExIDExNC4zOTMgWiBNIDI0NS4zMTEgMTY4LjQ1MSBDIDE4My4wMzEgMTcxLjQyNCAxNDcuMzE5IDI0MC43NzYgMTgxLjAzIDI5My4yODUgQyAyMTQuNzQzIDM0NS43OTQgMjkyLjU5MyAzNDIuMDc5IDMyMS4xNjIgMjg2LjU5NiBDIDM0OC4xOCAyMzQuMTI2IDMxMS45MjQgMTcxLjI2MSAyNTMuMDI0IDE2OC40NTEgTCAyNDUuMzExIDE2OC40NTEgWiBNIDI0NS4zMTEgMjIyLjUwOCBDIDIyNC43NDEgMjI1LjQ4MSAyMTUuMDk4IDI0OS42MjkgMjI3Ljk1NCAyNjUuOTc4IEMgMjQwLjgwOSAyODIuMzI2IDI2Ni41MjQgMjc4LjYxMiAyNzQuMjM3IDI1OS4yOSBDIDI4MC43MjUgMjQzLjA0NSAyNzAuMzE5IDIyNS4wMDYgMjUzLjAyNCAyMjIuNTA4IEwgMjQ1LjMxMSAyMjIuNTA4IFogTSA0OTIuMTU5IDI0OS41MzcgTCA2LjE3NiAyNDkuNTM3IE0gNDIyLjczMiA3NS43OCBMIDc1LjYwMyA0MjMuMjkzIE0gNDIyLjczMiA0MjMuMjkzIEwgNzUuNjAzIDc1Ljc4IE0gMjQ5LjE2NyA2LjI3OCBMIDI0OS4xNjcgNDkyLjc5NSIgc3R5bGU9InBhaW50LW9yZGVyOiBzdHJva2UgbWFya2VyczsgZmlsbC1ydWxlOiBldmVub2RkOyBmaWxsOiByZ2IoMjU1LCAyNTUsIDI1NSk7IGZpbGwtb3BhY2l0eTogMDsgc3Ryb2tlLXdpZHRoOiAxMHB4OyBzdHJva2U6IHJnYigyNTUsIDI1NSwgMjU1KTsiLz4KICA8cGF0aCBkPSJNIDE5NS4xNjkgMzMuMzA3IEwgMTE4LjAzIDcxLjkyIEwgMzgwLjMwNSA0MjcuMTU0IEwgNDE4Ljg3NSAzODguNTQyIEwgMjQ5LjE2NyAyNDkuNTM3IEwgMTk1LjE2OSAzMy4zMDcgWiIgc3R5bGU9ImZpbGw6IHJnYigyNTUsIDI1NSwgMjU1KTsiLz4KICA8cGF0aCBkPSJNIDY3Ljg4OCAxOTUuNDggTCA2Ny44ODggMzAzLjU5NCBMIDI0OS4xNjcgMjQ5LjUzNyBMIDY3Ljg4OCAxOTUuNDggWiIgc3R5bGU9ImZpbGw6IHJnYigyNTUsIDI1NSwgMjU1KTsiLz4KICA8cGF0aCBkPSJNIDI0OS4xNjcgMjQ5LjUzNyBMIDI3Mi4zMDkgMzg0LjY4IEwgMjI2LjAyNSAzODQuNjggTCAyNDkuMTY3IDI0OS41MzcgWiIgc3R5bGU9ImZpbGw6IHJnYigyNTUsIDI1NSwgMjU1KTsiLz4KICA8cGF0aCBkPSJNIDI0OS4xNjcgMjQ5LjUzNyBMIDI5OS4zMDkgOTUuMDg2IEwgMzM0LjAyMSAxMTQuMzkzIEwgMjQ5LjE2NyAyNDkuNTM3IFoiIHN0eWxlPSJmaWxsOiByZ2IoMjU1LCAyNTUsIDI1NSk7Ii8+CiAgPHBhdGggZD0iTSAyNDkuMTY3IDI0OS41MzcgTCAzMDMuMTY1IDIyNi4zNjkgTCAzMDcuMDIyIDI0MS44MTQgTCAyNDkuMTY3IDI0OS41MzcgWiBNIDI0OS4xNjcgMjQ5LjUzNyBMIDE0OC44ODUgMjk5LjczMyBMIDE2MC40NTcgMzE1LjE3OCBMIDI0OS4xNjcgMjQ5LjUzNyBaIiBzdHlsZT0iZmlsbDogcmdiKDI1NSwgMjU1LCAyNTUpOyIvPgo8L3N2Zz4=&logoColor=white"
+                    alt="Matplotlib"
+                  />
+
+                  <img
+                    src="https://img.shields.io/badge/Jupyter-%23FA0F00.svg?style=flat-square&logo=jupyter&logoColor=white"
+                    alt="Jupyter Notebook"
+                  />
+
+                </div>
+
+
+                <a
+                  class="project-github"
+                  href="https://github.com/Daalma7/CNNsXraysCOVID"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+
+                  <span class="github-icon">
+                    <svg
+                      viewBox="0 0 24 24"
+                      aria-hidden="true"
+                    >
+                      <path
+                        fill="currentColor"
+                        d="M12 .5C5.65.5.5 5.65.5 12c0 5.08
+                        3.29 9.39 7.86 10.91.58.11.79-.25.79-.56
+                        0-.28-.01-1.02-.02-2-3.2.7-3.88-1.54-3.88-1.54
+                        -.53-1.33-1.28-1.68-1.28-1.68-1.05-.72.08-.71.08-.71
+                        1.16.08 1.77 1.19 1.77 1.19 1.03 1.77 2.7 1.26
+                        3.36.96.1-.75.4-1.26.73-1.55-2.55-.29-5.23-1.28
+                        -5.23-5.69 0-1.26.45-2.29 1.19-3.1-.12-.29-.52-1.46
+                        .11-3.05 0 0 .97-.31 3.17 1.18a11 11 0 0 1 5.77 0
+                        c2.2-1.49 3.17-1.18 3.17-1.18.63 1.59.23 2.76.11 3.05
+                        .74.81 1.19 1.84 1.19 3.1 0 4.42-2.69 5.39-5.25
+                        5.68.41.35.78 1.04.78 2.1 0 1.52-.01 2.74-.01 3.11
+                        0 .31.21.67.8.56C20.71 21.39 24 17.08 24 12
+                        24 5.65 18.35.5 12 .5Z"
+                      />
+                    </svg>
+                  </span>
+
+                  <span>
+                    Ver en GitHub
+                  </span>
+
+                  <span class="github-arrow">
+                    ↗
+                  </span>
+
+                </a>
+
+              </div>
+
+            </div>
+
+
+            <!-- RIGHT -->
+
+            <div class="project-gallery-wrapper">
+
+              <ProjectGallery
+                images={[
+                  "/images/covid/1.png",
+                  "/images/covid/2.png",
+                  "/images/covid/3.png",
+                  "/images/covid/4.png",
+                ]}
+                alt="Pokémon Classification"
+                interval={4500}
+              />
+
+            </div>
+
+          </div>
+
+        </div>
+
+      </article>
+
+    </div>
+
+
+    
+
+
+    <div id="mathematics-projects" class="project-group">
+
+      <!-- PROJECT 02 -->
+
+      <article class="project">
+
+        <div class="project-number">
+          04
+        </div>
+
+
+        <div class="project-main">
+
+          <div class="project-content">
+
+            <div class="project-info">
+
+              <div class="project-heading">
+
+                <p class="project-category">
+                  MATEMÁTICAS · VISUALIZACIÓN
+                </p>
+
+                <h3>
+                  Explorando
+                  <br />
+                  <em>ideas matemáticas.</em>
+                </h3>
+
+                <h4>
+                  Todo un mundo
+                </h4>
+
+              </div>
+
+
+              <div class="project-description">
+
+                <p>
+                  Mi proyecto matemático lo constuyo en las aulas, donde todo el alumnado aprende y se nutre de él.
+                </p>
+
+              </div>
+
+              <a
+                  class="project-github"
+                  href="https://github.com/Daalma7/PokemonDataScience"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+
+                  
+
+                  <span>
+                    EXPLORA DOCENCIA
+                  </span>
+
+                  <span class="github-arrow">
+                    ↗
+                  </span>
+
+                </a>
+
+            </div>
+
+
+            <div class="project-gallery-wrapper">
+
+              <div class="math-placeholder">
+                <span>MATEMÁTICAS</span>
+              </div>
+
+            </div>
+
+          </div>
+
+        </div>
+
+      </article>
+    
+    </div>
+
+    <div id="game-projects" class="project-group" >
+
+      <!-- PROJECT 03 -->
+
+      <article class="project project-game">
+
+        <div class="project-number">
+          05
+        </div>
+
+
+        <div class="project-main">
+
+          <div class="project-content">
+
+            <div class="project-info">
+
+              <div class="project-heading">
+
+                <p class="project-category">
+                  DESARROLLO DE JUEGOS
+                </p>
+
+                <h3>
+                  Construyendo
+                  <br />
+                  <em>mundos interactivos.</em>
+                </h3>
+
+                <h4>
+                  Un juego sin anunciar
+                </h4>
+
+              </div>
+
+
+              <div class="project-description">
+
+                <p>
+                  Un proyecto personal que explora límites en términos de estrategia y coleccionismo.
+                </p>
+
+
+                <div class="project-tech">
+
+                  <img
+                    src="https://img.shields.io/badge/Godot-478CBF?style=flat-square&logo=godot-engine&logoColor=white"
+                    alt="Godot"
+                  />
+
+                  <img
+                    src="https://img.shields.io/badge/Game_Design-171717?style=flat-square"
+                    alt="Game Design"
+                  />
+
+                </div>
+
+              </div>
+
+            </div>
+
+
+            <div class="project-gallery-wrapper">
+
+              <div class="game-placeholder">
+
+                <span>
+                  DESARROLLO DE JUEGOS
+                </span>
+
+                <strong>
+                  Se está
+                  <br />
+                   acercando.
+                </strong>
+
+                <small>
+                  Godot · Estrategia · Coleccionismo
+                </small>
+
+              </div>
+
+            </div>
+
+          </div>
+
+        </div>
+
+      </article>
+    
+    </div>
+
+  </div>
+
+</section>

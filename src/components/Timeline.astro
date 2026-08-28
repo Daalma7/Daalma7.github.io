@@ -1,0 +1,243 @@
+---
+---
+
+<section id="experience" class="timeline-section">
+
+  <div class="timeline-header">
+
+    <p class="section-label">02 — EXPERIENCIA</p>
+
+    <div class="timeline-header-content">
+      <h2>
+        Un camino a través del
+        <em> conocimiento.</em>
+      </h2>
+
+      <p>
+        Matemáticas, computación, IA, docencia... Construyendo una visión global e interconectada entre ellas.
+      </p>
+    </div>
+
+  </div>
+
+
+  <div class="timeline">
+
+    <!-- Static background line -->
+    <div class="timeline-line" aria-hidden="true">
+      <div class="timeline-line-progress"></div>
+    </div>
+
+
+    <!-- MATHEMATICS -->
+
+    <article class="timeline-item">
+
+      <div class="timeline-year">
+        2016-2021
+      </div>
+
+      <div class="timeline-marker">
+        <div class="timeline-dot"></div>
+      </div>
+
+      <div class="timeline-content">
+
+        <p class="timeline-type">
+          EDUCACIÓN - MATEMÁTICAS
+        </p>
+
+        <h3>
+          Grado en Matemáticas (UGR)
+        </h3>
+
+        <p>
+          Donde desarrollé una forma de pensar basada en el razonamiento lógico, la abstracción y la resolución de problemas, construyendo una base sólida en análisis, álgebra, geometría, probabilidad, estadística y matemática aplicada.
+        </p>
+
+      </div>
+
+    </article>
+
+
+    <!-- COMPUTER SCIENCE -->
+
+    <article class="timeline-item">
+
+      <div class="timeline-year">
+        2016-2021
+      </div>
+
+      <div class="timeline-marker">
+        <div class="timeline-dot"></div>
+      </div>
+
+      <div class="timeline-content">
+
+        <p class="timeline-type">
+          EDUCACIÓN - INFORMÁTICA
+        </p>
+
+        <h3>
+          Grado en Ingeniería Informática con mención en Computación y Sistemas Inteligentes (UGR)
+        </h3>
+
+        <p>
+          Donde aprendí sobre computación, programación, algoritmia, pensamiento computacional, metaheurísticas, visión por computador y aprendizaje automático, complementando mi formación matemática con una perspectiva computacional orientada a resolver problemas complejos.
+        </p>
+
+      </div>
+
+    </article>
+
+
+    <!-- ARTIFICIAL INTELLIGENCE -->
+
+    <article class="timeline-item">
+
+      <div class="timeline-year">
+        2022-2023
+      </div>
+
+      <div class="timeline-marker">
+        <div class="timeline-dot"></div>
+      </div>
+
+      <div class="timeline-content">
+
+        <p class="timeline-type">
+          EDUCACIÓN - DOCENCIA
+        </p>
+
+        <h3>
+          Máster en Educación Secundaria, con Especialidad en Matemáticas (UGR)
+        </h3>
+
+        <p>
+          Donde profundicé en psicología del desarrollo y del aprendizaje, didáctica de las matemáticas, evaluación y diseño de actividades y recursos, llevando estos conocimientos a la práctica durante mi formación en el instituto.
+        </p>
+
+      </div>
+
+    </article>
+
+    <!-- ARTIFICIAL INTELLIGENCE -->
+
+    <article class="timeline-item">
+
+      <div class="timeline-year">
+        2021-2024
+      </div>
+
+      <div class="timeline-marker">
+        <div class="timeline-dot"></div>
+      </div>
+
+      <div class="timeline-content">
+
+        <p class="timeline-type">
+          EDUCACIÓN - IA Y DATA SCIENCE
+        </p>
+
+        <h3>
+          Máster en Ciencia de Datos e Ingeniería de Computadores con Especialidad en Ciencia de Datos y Tecnologías Inteligentes (UGR)
+        </h3>
+
+        <p>
+          Donde profundicé en ciencia y minería de datos, Big Data, análisis de redes sociales, minería de procesos y modelos probabilísticos, consolidando mi formación en inteligencia artificial y análisis de datos. Obtuve matrícula de honor en mi Trabajo Fin de Máster: "Development of Fair Machine Learning Algorithms Based on Decision Trees".
+        </p>
+
+      </div>
+
+    </article>
+
+
+    <!-- TEACHING -->
+
+    <article class="timeline-item">
+
+      <div class="timeline-year">
+        2021-2023
+      </div>
+
+      <div class="timeline-marker">
+        <div class="timeline-dot"></div>
+      </div>
+
+      <div class="timeline-content">
+
+        <p class="timeline-type">
+          TRABAJO - INVESTIGACIÓN
+        </p>
+
+        <h3>
+          Data Scientist e Investigador con Cargo a Proyecto
+        </h3>
+
+        <p>
+         Trabajé como desarrollador principal en el proyecto "Evaluación de necesidades asistenciales de personas con enfermedades crónicas según determinantes sociales y ambientales mediante metodologías avanzadas de ciencia de datos", aplicando técnicas de ciencia de datos a un problema real con impacto social.
+        </p>
+
+      </div>
+
+    </article>
+
+
+   <!-- TEACHING -->
+
+    <article class="timeline-item">
+
+      <div class="timeline-year">
+        2025 - ACTUALIDAD
+      </div>
+
+      <div class="timeline-marker">
+        <div class="timeline-dot"></div>
+      </div>
+
+      <div class="timeline-content">
+
+        <p class="timeline-type">
+          TRABAJO - DOCENCIA
+        </p>
+
+        <h3>
+          Profesor de Matemáticas en Educación Secundaria Pública
+        </h3>
+
+        <p>
+          Mi día a día en el aula me ha enseñado a convertir ideas complejas en experiencias de aprendizaje accesibles, adaptarme a diferentes ritmos y necesidades y gestionar un entorno donde comunicación, organización y flexibilidad son esenciales.
+        </p>
+
+      </div>
+
+    </article>
+
+  </div>
+
+</section>
+
+
+<script>
+  const timeline = document.querySelector(".timeline");
+
+  if (timeline) {
+    const items = timeline.querySelectorAll(".timeline-item");
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("is-visible");
+            observer.unobserve(entry.target);
+          }
+        });
+      },
+      {
+        threshold: 0.35
+      }
+    );
+
+    items.forEach((item) => observer.observe(item));
+  }
+</script>

@@ -1,0 +1,515 @@
+---
+interface Props {
+  images: string[];
+  alt?: string;
+  interval?: number;
+}
+
+const {
+  images,
+  alt = "Project image",
+  interval = 4500,
+} = Astro.props;
+---
+
+<div
+  class="project-gallery"
+  data-gallery
+  data-interval={interval}
+>
+  <div class="gallery-viewport">
+
+    {images.map((image, index) => (
+      <div
+        class:list={[
+          "gallery-slide",
+          { "is-active": index === 0 }
+        ]}
+        data-slide={index}
+        aria-hidden={index !== 0}
+      >
+        <img
+          src={image}
+          alt={`${alt} — ${index + 1}`}
+          loading={index === 0 ? "eager" : "lazy"}
+        />
+      </div>
+    ))}
+
+  </div>
+
+
+  {images.length > 1 && (
+    <>
+      <button
+        class="gallery-arrow gallery-arrow-prev"
+        type="button"
+        aria-label="Previous image"
+        data-prev
+      >
+        ←
+      </button>
+
+      <button
+        class="gallery-arrow gallery-arrow-next"
+        type="button"
+        aria-label="Next image"
+        data-next
+      >
+        →
+      </button>
+
+
+      <div class="gallery-controls">
+
+        <div class="gallery-dots">
+          {images.map((_, index) => (
+            <button
+              class:list={[
+                "gallery-dot",
+                { "is-active": index === 0 }
+              ]}
+              type="button"
+              aria-label={`Go to image ${index + 1}`}
+              aria-current={index === 0 ? "true" : undefined}
+              data-dot={index}
+            >
+            </button>
+          ))}
+        </div>
+
+      </div>
+    </>
+  )}
+</div>
+
+
+<script>
+  document.querySelectorAll<HTMLElement>("[data-gallery]").forEach((gallery) => {
+
+    const slides = Array.from(
+      gallery.querySelectorAll<HTMLElement>("[data-slide]")
+    );
+
+    const dots = Array.from(
+      gallery.querySelectorAll<HTMLButtonElement>("[data-dot]")
+    );
+
+    const prev = gallery.querySelector<HTMLButtonElement>("[data-prev]");
+    const next = gallery.querySelector<HTMLButtonElement>("[data-next]");
+
+    if (slides.length <= 1) return;
+
+    let current = 0;
+
+    const interval = Number(
+      gallery.dataset.interval || 4500
+    );
+
+    let timer: ReturnType<typeof setInterval>;
+
+
+    function showSlide(index: number) {
+
+      current = (index + slides.length) % slides.length;
+
+      slides.forEach((slide, i) => {
+
+        const active = i === current;
+
+        slide.classList.toggle("is-active", active);
+        slide.setAttribute(
+          "aria-hidden",
+          active ? "false" : "true"
+        );
+
+      });
+
+
+      dots.forEach((dot, i) => {
+
+        const active = i === current;
+
+        dot.classList.toggle("is-active", active);
+
+        if (active) {
+          dot.setAttribute("aria-current", "true");
+        } else {
+          dot.removeAttribute("aria-current");
+        }
+
+      });
+
+    }
+
+
+    function nextSlide() {
+      showSlide(current + 1);
+    }
+
+
+    function previousSlide() {
+      showSlide(current - 1);
+    }
+
+
+    function startAutoplay() {
+
+      clearInterval(timer);
+
+      timer = setInterval(
+        nextSlide,
+        interval
+      );
+
+    }
+
+
+    function stopAutoplay() {
+      clearInterval(timer);
+    }
+
+
+    next?.addEventListener("click", () => {
+
+      nextSlide();
+      startAutoplay();
+
+    });
+
+
+    prev?.addEventListener("click", () => {
+
+      previousSlide();
+      startAutoplay();
+
+    });
+
+
+    dots.forEach((dot, index) => {
+
+      dot.addEventListener("click", () => {
+
+        showSlide(index);
+        startAutoplay();
+
+      });
+
+    });
+
+
+    gallery.addEventListener(
+      "mouseenter",
+      stopAutoplay
+    );
+
+
+    gallery.addEventListener(
+      "mouseleave",
+      startAutoplay
+    );
+
+
+    showSlide(0);
+    startAutoplay();
+
+  });
+</script>
+
+
+<style>
+  .project-gallery {
+    position: relative;
+    width: 100%;
+    height: min(65vh, 700px);
+
+    /*
+     * IMPORTANT:
+     * El marco tiene el mismo color que la página.
+     * Las imágenes se colocan encima sin recortarse.
+     */
+    background: var(--background);
+
+    overflow: hidden;
+  }
+
+
+  .gallery-viewport {
+    position: absolute;
+    inset: 0;
+
+    width: 100%;
+    height: 100%;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    overflow: hidden;
+  }
+
+
+  /*
+   * Cada slide ocupa TODO el marco,
+   * pero la imagen de dentro NO.
+   */
+  .gallery-slide {
+    position: absolute;
+    inset: 0;
+
+    width: 100%;
+    height: 100%;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    padding: 35px;
+
+    opacity: 0;
+    visibility: hidden;
+
+    transition:
+      opacity 0.6s ease,
+      visibility 0.6s ease;
+  }
+
+
+  .gallery-slide.is-active {
+    opacity: 1;
+    visibility: visible;
+  }
+
+
+  /*
+   * ESTA ES LA CLAVE.
+   *
+   * contain = la imagen completa siempre visible.
+   * max-width/height = nunca puede salirse.
+   */
+  .gallery-slide img {
+    display: block;
+
+    width: 100%;
+    height: 100%;
+
+    max-width: 100%;
+    max-height: 100%;
+
+    object-fit: contain;
+    object-position: center;
+
+    /*
+     * Evita que el navegador haga cosas
+     * extrañas con imágenes inline.
+     */
+    flex-shrink: 0;
+
+    user-select: none;
+    -webkit-user-drag: none;
+
+    transition:
+      transform 0.8s
+      cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+
+  .gallery-slide.is-active img {
+    transform: scale(1);
+  }
+
+
+  /*
+   * FLECHAS
+   */
+  .gallery-arrow {
+    position: absolute;
+
+    top: 50%;
+    z-index: 5;
+
+    width: 48px;
+    height: 48px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border: 1px solid rgba(23, 23, 23, 0.18);
+    border-radius: 50%;
+
+    background: rgba(244, 242, 237, 0.82);
+    color: var(--foreground);
+
+    font-family: inherit;
+    font-size: 1rem;
+
+    cursor: pointer;
+
+    transform: translateY(-50%);
+
+    backdrop-filter: blur(8px);
+
+    opacity: 0;
+
+    transition:
+      opacity 0.3s ease,
+      transform 0.3s ease,
+      background 0.3s ease;
+  }
+
+
+  .gallery-arrow-prev {
+    left: 25px;
+  }
+
+
+  .gallery-arrow-next {
+    right: 25px;
+  }
+
+
+  .project-gallery:hover .gallery-arrow {
+    opacity: 1;
+  }
+
+
+  .gallery-arrow:hover {
+    background: var(--foreground);
+    color: var(--background);
+  }
+
+
+  .gallery-arrow-prev:hover {
+    transform:
+      translate(-3px, -50%);
+  }
+
+
+  .gallery-arrow-next:hover {
+    transform:
+      translate(3px, -50%);
+  }
+
+
+  /*
+   * PUNTOS
+   */
+  .gallery-controls {
+    position: absolute;
+
+    left: 50%;
+    bottom: 22px;
+
+    z-index: 5;
+
+    transform: translateX(-50%);
+
+    padding: 8px 12px;
+
+    border: 1px solid rgba(23, 23, 23, 0.12);
+    border-radius: 100px;
+
+    background: rgba(244, 242, 237, 0.78);
+
+    backdrop-filter: blur(8px);
+  }
+
+
+  .gallery-dots {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+  }
+
+
+  .gallery-dot {
+    width: 6px;
+    height: 6px;
+
+    padding: 0;
+
+    border: 0;
+    border-radius: 50%;
+
+    background: rgba(23, 23, 23, 0.25);
+
+    cursor: pointer;
+
+    transition:
+      width 0.3s ease,
+      background 0.3s ease,
+      transform 0.3s ease;
+  }
+
+
+  .gallery-dot.is-active {
+    width: 18px;
+    border-radius: 100px;
+
+    background: var(--foreground);
+  }
+
+
+  .gallery-dot:hover {
+    transform: scale(1.4);
+  }
+
+
+  /*
+   * MOBILE
+   */
+  @media (max-width: 700px) {
+
+    .project-gallery {
+      height: 55vh;
+      min-height: 350px;
+    }
+
+
+    .gallery-slide {
+      padding: 20px;
+    }
+
+
+    .gallery-arrow {
+      width: 40px;
+      height: 40px;
+
+      opacity: 1;
+
+      background: rgba(244, 242, 237, 0.9);
+    }
+
+
+    .gallery-arrow-prev {
+      left: 12px;
+    }
+
+
+    .gallery-arrow-next {
+      right: 12px;
+    }
+
+
+    .gallery-controls {
+      bottom: 14px;
+    }
+
+  }
+
+
+  /*
+   * ACCESSIBILITY
+   */
+  @media (prefers-reduced-motion: reduce) {
+
+    .gallery-slide,
+    .gallery-slide img,
+    .gallery-arrow,
+    .gallery-dot {
+      transition: none;
+    }
+
+  }
+</style>

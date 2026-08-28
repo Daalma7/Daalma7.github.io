@@ -144,9 +144,11 @@ static, so `set:html` is acceptable here. Plain strings everywhere else.
 
 - **`src/pages/en/index.astro`** — identical with `lang="en"`.
 
-`SITE` base URL: add `site: 'https://davidvillar.…'` to `astro.config.mjs` if a domain is
-known; otherwise use a root-relative fallback for hreflang and leave a `TODO` comment.
-(Confirmed at implementation time; default to root-relative if unknown.)
+`SITE` base URL for absolute `hreflang` hrefs: if a production domain is known, set
+`site:` in `astro.config.mjs` and build absolute URLs with `Astro.site`. If not known at
+implementation time, this is **not a blocker** — emit root-relative hrefs (`/`, `/en/`)
+and leave a `<!-- TODO: set astro.config site for absolute hreflang -->` note. No further
+user input required.
 
 ### 1.5 Components
 
@@ -154,6 +156,11 @@ Every section component gains `interface Props { lang: Lang }` and does
 `const t = useTranslations(lang)`. All visible strings become `t.*` lookups. Ordered
 content (timeline entries, project cards, teaching principles) maps over the arrays in the
 dictionary so markup and copy stay in sync across locales.
+
+`ProjectGallery.astro` also takes `lang` (or receives already-translated label props from
+`Projects.astro`) so its `aria-label`s — "Previous image" / "Next image" /
+"Go to image N" — and the fallback `alt` are localized. `Reveal.astro` and
+`ParticleField.astro` have no text and are unchanged.
 
 ### 1.6 Language switcher
 
