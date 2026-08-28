@@ -29,12 +29,12 @@ const t = useTranslations(lang);
       <h1><Fragment set:html={t.hero.name} /></h1>
 
       <p class="intro">{t.hero.intro}</p>
-
-      <a href="#about" class="scroll-indicator">
-        <span>{t.hero.scroll}</span>
-        <span class="arrow">↓</span>
-      </a>
     </div>
+
+    <a href="#about" class="scroll-indicator">
+      <span>{t.hero.scroll}</span>
+      <span class="arrow">↓</span>
+    </a>
   </section>
 
   <section id="about" class="about">
@@ -72,3 +72,219 @@ const t = useTranslations(lang);
   <Contact lang={lang} />
   <Footer lang={lang} />
 </main>
+
+<style>
+  .hero {
+    min-height: 100svh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    /* top padding clears the fixed navbar; bottom padding reserves room for the scroll indicator */
+    padding: clamp(7rem, 14vh, 10rem) var(--gutter) var(--space-3xl);
+    position: relative;
+    overflow: hidden;
+    isolation: isolate;
+  }
+
+  .hero-content {
+    position: relative;
+    z-index: 1;
+    width: 100%;
+    max-width: var(--content-max);
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .eyebrow {
+    margin: 0 0 var(--space-lg);
+    color: var(--muted);
+    animation: fadeUp 1s ease both;
+  }
+
+  .hero h1 {
+    margin: 0;
+    font-size: var(--display-xl);
+    line-height: 0.82;
+    letter-spacing: -0.06em;
+    font-weight: 500;
+    animation: fadeUp 1s 0.15s ease both;
+  }
+
+  .intro {
+    max-width: 44ch;
+    margin-top: var(--space-lg);
+    font-size: var(--lead);
+    line-height: 1.55;
+    color: var(--muted);
+    animation: fadeUp 1s 0.3s ease both;
+  }
+
+  .scroll-indicator {
+    position: absolute;
+    left: 50%;
+    bottom: var(--space-lg);
+    transform: translateX(-50%);
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--space-2xs);
+    width: max-content;
+    font-size: 0.6rem;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--muted);
+    transition: color 0.3s ease;
+  }
+
+  .scroll-indicator::before {
+    content: "";
+    width: 1px;
+    height: 20px;
+    background: var(--muted);
+    opacity: 0.45;
+  }
+
+  .scroll-indicator .arrow {
+    font-size: 1rem;
+  }
+
+  .scroll-indicator:hover {
+    color: var(--foreground);
+  }
+
+  @keyframes fadeUp {
+    from {
+      opacity: 0;
+      transform: translateY(30px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  /* ABOUT */
+  .about {
+    padding: var(--section-pad-y) var(--gutter);
+    border-top: 1px solid var(--line);
+    display: grid;
+    grid-template-columns: var(--col-label) 1fr;
+    gap: var(--col-gap);
+  }
+
+  .about-content {
+    max-width: var(--content-max);
+  }
+
+  .about h2 {
+    margin: 0;
+    max-width: 18ch;
+    font-size: var(--display-l);
+    line-height: 1;
+    letter-spacing: -0.04em;
+    font-weight: 500;
+  }
+
+  .about h2 em {
+    font-family: "Playfair Display", serif;
+    font-weight: 500;
+  }
+
+  .about-lower {
+    margin-top: var(--space-3xl);
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 280px;
+    gap: clamp(3rem, 8vw, 7rem);
+    align-items: start;
+  }
+
+  .about-text {
+    max-width: 60ch;
+  }
+
+  .about-text p {
+    margin: 0 0 var(--space-md);
+    font-size: 1.05rem;
+    line-height: 1.8;
+    color: var(--muted);
+  }
+
+  .about-text p:last-child {
+    margin-bottom: 0;
+  }
+
+  .about-closing {
+    margin-top: var(--space-xl) !important;
+    color: var(--foreground) !important;
+    font-size: 1.15rem !important;
+  }
+
+  .about-closing em {
+    font-family: "Playfair Display", serif;
+    font-size: 1.3em;
+    font-weight: 500;
+  }
+
+  .about-photo {
+    margin: 0;
+    width: 280px;
+  }
+
+  .about-photo-frame {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 4 / 5;
+    overflow: hidden;
+    background: #dedbd4;
+  }
+
+  .about-photo-frame::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border: 1px solid rgba(23, 23, 23, 0.12);
+    pointer-events: none;
+  }
+
+  .about-photo img {
+    width: 100%;
+    height: 100%;
+    display: block;
+    object-fit: cover;
+    filter: grayscale(35%) contrast(1.05) sepia(8%);
+    transform: scale(1.01);
+    transition: filter 0.6s ease, transform 0.8s cubic-bezier(0.2, 0.65, 0.3, 1);
+  }
+
+  .about-photo figcaption {
+    margin-top: var(--space-xs);
+    text-align: center;
+    font-size: 0.6rem;
+    letter-spacing: 0.16em;
+    color: var(--muted);
+    text-transform: uppercase;
+  }
+
+  @media (max-width: 800px) {
+    .about {
+      grid-template-columns: 1fr;
+    }
+
+    .about-lower {
+      grid-template-columns: 1fr;
+      margin-top: var(--space-2xl);
+    }
+
+    .about-photo {
+      width: min(240px, 65vw);
+      margin: 0 auto;
+    }
+
+    .about-photo img {
+      filter: grayscale(90%) contrast(1.05) sepia(8%);
+    }
+  }
+</style>
