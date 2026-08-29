@@ -1,0 +1,444 @@
+---
+import { useTranslations, type Lang } from "../i18n";
+import {
+  R,
+  VIEW_W,
+  VIEW_H,
+  CENTERS,
+  solidHalfPath,
+  lensPath,
+  triplePath,
+  labelAnchor,
+  placeSymbols,
+  COLLAGE_FADE,
+  chordFadeAxis,
+  CHORD_BLEED,
+  type DisciplineKey,
+} from "../lib/venn";
+import { SYMBOL_SETS } from "../lib/venn-symbols";
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+const names = t.projects.disciplines;
+
+const disciplines: Array<{
+  key: DisciplineKey;
+  href: string;
+  lines: string[];
+  seed: number;
+}> = [
+  { key: "math", href: "#mathematics-projects", lines: names.math.split(/<br\s*\/?>/), seed: 0x4d415448 },
+  { key: "ai", href: "#ai-projects", lines: names.ai.split(/<br\s*\/?>/), seed: 0x41492121 },
+  { key: "games", href: "#game-projects", lines: names.games.split(/<br\s*\/?>/), seed: 0x47414d45 },
+];
+
+// the three two-circle overlaps, in the order they are painted over the halves
+const pairs: Array<[DisciplineKey, DisciplineKey]> = [
+  ["math", "ai"],
+  ["math", "games"],
+  ["ai", "games"],
+];
+
+const collages = disciplines.map((d) => ({
+  key: d.key,
+  placements: placeSymbols(d.key, Object.keys(SYMBOL_SETS[d.key]), d.seed),
+}));
+
+const LINE_HEIGHT = 15;
+---
+
+<div class="disciplines">
+
+  <svg
+    class="venn"
+    viewBox={`0 0 ${VIEW_W} ${VIEW_H.toFixed(2)}`}
+    role="group"
+    aria-label={disciplines.map((d) => d.lines.join(" ")).join(" · ")}
+  >
+
+    <defs>
+      <!-- the solid half is carried past its chord and dissolved along one axis, so
+           the two halves of a circle meet in a gradient. Only this edge softens:
+           the arcs, the notches where two circles meet and every internal Venn
+           boundary are untouched. -->
+      {
+        disciplines.map((d) => {
+          const axis = chordFadeAxis(d.key, CHORD_BLEED);
+          return (
+            <linearGradient
+              id={`venn-bleed-${d.key}`}
+              gradientUnits="userSpaceOnUse"
+              x1={axis.from.x}
+              y1={axis.from.y}
+              x2={axis.to.x}
+              y2={axis.to.y}
+            >
+              <stop offset="0" stop-color="#fff" />
+              <stop offset="0.18" stop-color="#ededed" />
+              <stop offset="0.42" stop-color="#999" />
+              <stop offset="0.68" stop-color="#2a2a2a" />
+              <stop offset="1" stop-color="#000" />
+            </linearGradient>
+          );
+        })
+      }
+      {
+        disciplines.map((d) => (
+          <mask
+            id={`venn-chord-${d.key}`}
+            maskUnits="userSpaceOnUse"
+            x={CENTERS[d.key].x - R}
+            y={CENTERS[d.key].y - R}
+            width={2 * R}
+            height={2 * R}
+          >
+            <path d={solidHalfPath(d.key)} fill={`url(#venn-bleed-${d.key})`} />
+          </mask>
+        ))
+      }
+
+      <!-- the other half of the cross-dissolve: symbols fade in over the same band,
+           slightly behind the colour, so neither is ever drawn muddily over the
+           other. It doubles as a guarantee that no symbol crosses the chord. -->
+      {
+        disciplines.map((d) => {
+          const axis = chordFadeAxis(d.key);
+          return (
+            <linearGradient
+              id={`venn-emerge-${d.key}`}
+              gradientUnits="userSpaceOnUse"
+              x1={axis.from.x}
+              y1={axis.from.y}
+              x2={axis.to.x}
+              y2={axis.to.y}
+            >
+              <stop offset="0" stop-color="#000" />
+              <stop offset="0.16" stop-color="#0a0a0a" />
+              <stop offset="0.42" stop-color="#8a8a8a" />
+              <stop offset="0.72" stop-color="#f0f0f0" />
+              <stop offset="1" stop-color="#fff" />
+            </linearGradient>
+          );
+        })
+      }
+      {
+        disciplines.map((d) => (
+          <mask
+            id={`venn-emerge-mask-${d.key}`}
+            maskUnits="userSpaceOnUse"
+            x={CENTERS[d.key].x - R}
+            y={CENTERS[d.key].y - R}
+            width={2 * R}
+            height={2 * R}
+          >
+            <circle
+              cx={CENTERS[d.key].x}
+              cy={CENTERS[d.key].y}
+              r={R}
+              fill={`url(#venn-emerge-${d.key})`}
+            />
+          </mask>
+        ))
+      }
+
+      <!-- the collage is dissolved by a radial fade centred on each circle, so its
+           outer boundary is exactly circular however ragged the symbols are -->
+      {
+        disciplines.map((d) => (
+          <radialGradient
+            id={`venn-fade-${d.key}`}
+            gradientUnits="userSpaceOnUse"
+            cx={CENTERS[d.key].x}
+            cy={CENTERS[d.key].y}
+            r={R}
+          >
+            <stop offset="0" stop-color="#fff" />
+            <stop offset={COLLAGE_FADE.start} stop-color="#fff" />
+            <stop offset={COLLAGE_FADE.end} stop-color="#000" />
+          </radialGradient>
+        ))
+      }
+      {
+        disciplines.map((d) => (
+          <mask
+            id={`venn-edge-${d.key}`}
+            maskUnits="userSpaceOnUse"
+            x={CENTERS[d.key].x - R}
+            y={CENTERS[d.key].y - R}
+            width={2 * R}
+            height={2 * R}
+          >
+            <circle
+              cx={CENTERS[d.key].x}
+              cy={CENTERS[d.key].y}
+              r={R}
+              fill={`url(#venn-fade-${d.key})`}
+            />
+          </mask>
+        ))
+      }
+      {
+        (Object.keys(SYMBOL_SETS) as DisciplineKey[]).map((key) =>
+          Object.entries(SYMBOL_SETS[key]).map(([name, paths]) => (
+            <g id={`sym-${key}-${name}`}>
+              {paths.map((d) => (
+                <path d={d} />
+              ))}
+            </g>
+          )),
+        )
+      }
+    </defs>
+
+    <!-- solid inner halves, then the pair overlaps, then the triple core -->
+    <g class="venn-fills" aria-hidden="true">
+      {
+        disciplines.map((d) => (
+          <path
+            class={`fill fill-${d.key}`}
+            d={solidHalfPath(d.key)}
+            mask={`url(#venn-chord-${d.key})`}
+          />
+        ))
+      }
+      {
+        pairs.map(([a, b]) => (
+          <path class={`fill mix mix-${a}-${b}`} d={lensPath(a, b)} />
+        ))
+      }
+      <path class="fill mix mix-all" d={triplePath()} />
+    </g>
+
+    <!-- outer halves: the circle's edge is implied by the symbols, never drawn -->
+    <g class="venn-collage" aria-hidden="true">
+      {
+        collages.map((c) => (
+          <g mask={`url(#venn-emerge-mask-${c.key})`}>
+          <g class={`collage collage-${c.key}`} mask={`url(#venn-edge-${c.key})`}>
+            {c.placements.map((p) => (
+              <use
+                href={`#sym-${c.key}-${p.href}`}
+                transform={p.transform}
+                opacity={p.opacity}
+              />
+            ))}
+          </g>
+          </g>
+        ))
+      }
+    </g>
+
+    <g class="venn-labels">
+      {
+        disciplines.map((d) => {
+          const a = labelAnchor(d.key);
+          return (
+            <a class={`disc disc-${d.key}`} href={d.href}>
+              <circle
+                class="disc-hit"
+                cx={CENTERS[d.key].x}
+                cy={CENTERS[d.key].y}
+                r={R}
+              />
+              <text
+                class="disc-label"
+                x={a.x}
+                y={a.y}
+                text-anchor="middle"
+                dominant-baseline="middle"
+              >
+                {d.lines.map((line, i) => (
+                  <tspan
+                    x={a.x}
+                    dy={i === 0 ? (-(d.lines.length - 1) * LINE_HEIGHT) / 2 : LINE_HEIGHT}
+                  >
+                    {line}
+                  </tspan>
+                ))}
+              </text>
+            </a>
+          );
+        })
+      }
+    </g>
+
+  </svg>
+
+  <!-- below 700px the in-diagram labels would render under 6px; link out here instead -->
+  <ul class="venn-legend">
+    {
+      disciplines.map((d) => (
+        <li>
+          <a class={`legend-link legend-${d.key}`} href={d.href}>
+            <span class="legend-dot" />
+            {d.lines.join(" ")}
+          </a>
+        </li>
+      ))
+    }
+  </ul>
+
+</div>
+
+<style>
+  .disciplines {
+    --c-math: #b04e33;
+    --c-ai: #35578c;
+    --c-games: #3c6446;
+
+    /* exactly screen(a, b) of the bases: the overlaps read as light, not pigment */
+    --c-math-ai: #c08aa3;
+    --c-math-games: #c39369;
+    --c-ai-games: #6599ac;
+    --c-all: #cfb8bc;
+
+    --collage-stroke: 1.35px;
+
+    margin: var(--space-2xl) auto 0;
+    width: min(700px, 100%);
+  }
+
+  .venn {
+    display: block;
+    width: 100%;
+    height: auto;
+    overflow: visible;
+  }
+
+  .fill-math { fill: var(--c-math); }
+  .fill-ai { fill: var(--c-ai); }
+  .fill-games { fill: var(--c-games); }
+
+  .mix-math-ai { fill: var(--c-math-ai); }
+  .mix-math-games { fill: var(--c-math-games); }
+  .mix-ai-games { fill: var(--c-ai-games); }
+  .mix-all { fill: var(--c-all); }
+
+  .venn-collage g {
+    fill: none;
+    stroke: currentColor;
+    stroke-width: var(--collage-stroke);
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    vector-effect: non-scaling-stroke;
+  }
+
+  .collage-math { color: var(--c-math); }
+  .collage-ai { color: var(--c-ai); }
+  .collage-games { color: var(--c-games); }
+
+  .disc-hit {
+    fill: transparent;
+    pointer-events: all;
+  }
+
+  .disc-label {
+    fill: var(--background);
+    font-family: inherit;
+    font-size: 10.8px;
+    font-weight: 500;
+    letter-spacing: 0.14em;
+    pointer-events: none;
+  }
+
+  .fill,
+  .collage,
+  .disc-label {
+    transition:
+      opacity 0.45s ease,
+      filter 0.45s ease,
+      letter-spacing 0.4s ease;
+  }
+
+  /* everything recedes, then the hovered discipline and its overlaps come back.
+     labels recede with their fill: paper-coloured text on a dimmed fill is
+     unreadable, so the two have to move together. */
+  .venn:has(.disc:hover) :is(.fill, .collage, .disc-label),
+  .venn:has(.disc:focus-visible) :is(.fill, .collage, .disc-label) {
+    opacity: 0.32;
+  }
+
+  .venn:has(.disc-math:hover) :is(.fill-math, .mix-math-ai, .mix-math-games, .mix-all, .collage-math, .disc-math .disc-label),
+  .venn:has(.disc-math:focus-visible) :is(.fill-math, .mix-math-ai, .mix-math-games, .mix-all, .collage-math, .disc-math .disc-label),
+  .venn:has(.disc-ai:hover) :is(.fill-ai, .mix-math-ai, .mix-ai-games, .mix-all, .collage-ai, .disc-ai .disc-label),
+  .venn:has(.disc-ai:focus-visible) :is(.fill-ai, .mix-math-ai, .mix-ai-games, .mix-all, .collage-ai, .disc-ai .disc-label),
+  .venn:has(.disc-games:hover) :is(.fill-games, .mix-math-games, .mix-ai-games, .mix-all, .collage-games, .disc-games .disc-label),
+  .venn:has(.disc-games:focus-visible) :is(.fill-games, .mix-math-games, .mix-ai-games, .mix-all, .collage-games, .disc-games .disc-label) {
+    opacity: 1;
+  }
+
+  /* the light metaphor: the active discipline brightens rather than moving */
+  .venn:has(.disc-math:hover) .fill-math,
+  .venn:has(.disc-ai:hover) .fill-ai,
+  .venn:has(.disc-games:hover) .fill-games {
+    filter: brightness(1.14) saturate(1.1);
+  }
+
+  .venn:has(.disc-math:hover) .collage-math,
+  .venn:has(.disc-ai:hover) .collage-ai,
+  .venn:has(.disc-games:hover) .collage-games {
+    --collage-stroke: 1.7px;
+  }
+
+  .disc:hover .disc-label {
+    letter-spacing: 0.19em;
+  }
+
+  .disc:focus {
+    outline: none;
+  }
+
+  .disc:focus-visible .disc-hit {
+    stroke: var(--foreground);
+    stroke-width: 2px;
+    stroke-dasharray: 4 5;
+  }
+
+  .venn-legend {
+    display: none;
+    margin: var(--space-lg) 0 0;
+    padding: 0;
+    list-style: none;
+    gap: var(--space-xs);
+  }
+
+  .legend-link {
+    display: flex;
+    align-items: center;
+    gap: var(--space-xs);
+    padding: var(--space-2xs) 0;
+    font-size: var(--text-eyebrow);
+    letter-spacing: var(--tracking-eyebrow);
+    text-transform: uppercase;
+  }
+
+  .legend-dot {
+    width: 0.7rem;
+    height: 0.7rem;
+    border-radius: 50%;
+    flex: none;
+  }
+
+  .legend-math .legend-dot { background: var(--c-math); }
+  .legend-ai .legend-dot { background: var(--c-ai); }
+  .legend-games .legend-dot { background: var(--c-games); }
+
+  @media (max-width: 700px) {
+    .disciplines {
+      --collage-stroke: 1px;
+    }
+
+    .venn-labels {
+      display: none;
+    }
+
+    .venn-legend {
+      display: flex;
+      flex-direction: column;
+    }
+  }
+</style>
